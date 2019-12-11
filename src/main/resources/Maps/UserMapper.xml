@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Dao.UserMapper">
+  <resultMap id="BaseResultMap" type="Model.User">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="UserName" jdbcType="NVARCHAR" property="username" />
+    <result column="Password" jdbcType="NVARCHAR" property="password" />
+    <result column="ParentID" jdbcType="INTEGER" property="parentid" />
+    <result column="LogicNode" jdbcType="INTEGER" property="logicnode" />
+    <result column="E_Mail" jdbcType="NVARCHAR" property="eMail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, UserName, Password, ParentID, LogicNode, E_Mail
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from User
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from User
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="Model.User">
+    insert into User (ID, UserName, Password, 
+      ParentID, LogicNode, E_Mail
+      )
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=NVARCHAR}, #{password,jdbcType=NVARCHAR}, 
+      #{parentid,jdbcType=INTEGER}, #{logicnode,jdbcType=INTEGER}, #{eMail,jdbcType=NVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="Model.User">
+    insert into User
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="username != null">
+        UserName,
+      </if>
+      <if test="password != null">
+        Password,
+      </if>
+      <if test="parentid != null">
+        ParentID,
+      </if>
+      <if test="logicnode != null">
+        LogicNode,
+      </if>
+      <if test="eMail != null">
+        E_Mail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="logicnode != null">
+        #{logicnode,jdbcType=INTEGER},
+      </if>
+      <if test="eMail != null">
+        #{eMail,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="Model.User">
+    update User
+    <set>
+      <if test="username != null">
+        UserName = #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        Password = #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="parentid != null">
+        ParentID = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="logicnode != null">
+        LogicNode = #{logicnode,jdbcType=INTEGER},
+      </if>
+      <if test="eMail != null">
+        E_Mail = #{eMail,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="Model.User">
+    update User
+    set UserName = #{username,jdbcType=NVARCHAR},
+      Password = #{password,jdbcType=NVARCHAR},
+      ParentID = #{parentid,jdbcType=INTEGER},
+      LogicNode = #{logicnode,jdbcType=INTEGER},
+      E_Mail = #{eMail,jdbcType=NVARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="Model.User">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="UserName" jdbcType="NVARCHAR" property="username" />
+    <result column="Password" jdbcType="NVARCHAR" property="password" />
+    <result column="ParentID" jdbcType="INTEGER" property="parentid" />
+    <result column="LogicNode" jdbcType="INTEGER" property="logicnode" />
+    <result column="E_Mail" jdbcType="NVARCHAR" property="eMail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, UserName, Password, ParentID, LogicNode, E_Mail
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from User
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from User
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="Model.User">
+    insert into User (ID, UserName, Password, 
+      ParentID, LogicNode, E_Mail
+      )
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=NVARCHAR}, #{password,jdbcType=NVARCHAR}, 
+      #{parentid,jdbcType=INTEGER}, #{logicnode,jdbcType=INTEGER}, #{eMail,jdbcType=NVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="Model.User">
+    insert into User
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="username != null">
+        UserName,
+      </if>
+      <if test="password != null">
+        Password,
+      </if>
+      <if test="parentid != null">
+        ParentID,
+      </if>
+      <if test="logicnode != null">
+        LogicNode,
+      </if>
+      <if test="eMail != null">
+        E_Mail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="logicnode != null">
+        #{logicnode,jdbcType=INTEGER},
+      </if>
+      <if test="eMail != null">
+        #{eMail,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="Model.User">
+    update User
+    <set>
+      <if test="username != null">
+        UserName = #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        Password = #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="parentid != null">
+        ParentID = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="logicnode != null">
+        LogicNode = #{logicnode,jdbcType=INTEGER},
+      </if>
+      <if test="eMail != null">
+        E_Mail = #{eMail,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="Model.User">
+    update User
+    set UserName = #{username,jdbcType=NVARCHAR},
+      Password = #{password,jdbcType=NVARCHAR},
+      ParentID = #{parentid,jdbcType=INTEGER},
+      LogicNode = #{logicnode,jdbcType=INTEGER},
+      E_Mail = #{eMail,jdbcType=NVARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="Model.User">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="UserName" jdbcType="NVARCHAR" property="username" />
+    <result column="Password" jdbcType="NVARCHAR" property="password" />
+    <result column="ParentID" jdbcType="INTEGER" property="parentid" />
+    <result column="LogicNode" jdbcType="INTEGER" property="logicnode" />
+    <result column="E_Mail" jdbcType="NVARCHAR" property="eMail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, UserName, Password, ParentID, LogicNode, E_Mail
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from User
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from User
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="Model.User">
+    insert into User (ID, UserName, Password, 
+      ParentID, LogicNode, E_Mail
+      )
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=NVARCHAR}, #{password,jdbcType=NVARCHAR}, 
+      #{parentid,jdbcType=INTEGER}, #{logicnode,jdbcType=INTEGER}, #{eMail,jdbcType=NVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="Model.User">
+    insert into User
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="username != null">
+        UserName,
+      </if>
+      <if test="password != null">
+        Password,
+      </if>
+      <if test="parentid != null">
+        ParentID,
+      </if>
+      <if test="logicnode != null">
+        LogicNode,
+      </if>
+      <if test="eMail != null">
+        E_Mail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="logicnode != null">
+        #{logicnode,jdbcType=INTEGER},
+      </if>
+      <if test="eMail != null">
+        #{eMail,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="Model.User">
+    update User
+    <set>
+      <if test="username != null">
+        UserName = #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        Password = #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="parentid != null">
+        ParentID = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="logicnode != null">
+        LogicNode = #{logicnode,jdbcType=INTEGER},
+      </if>
+      <if test="eMail != null">
+        E_Mail = #{eMail,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="Model.User">
+    update User
+    set UserName = #{username,jdbcType=NVARCHAR},
+      Password = #{password,jdbcType=NVARCHAR},
+      ParentID = #{parentid,jdbcType=INTEGER},
+      LogicNode = #{logicnode,jdbcType=INTEGER},
+      E_Mail = #{eMail,jdbcType=NVARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
