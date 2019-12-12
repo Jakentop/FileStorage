@@ -445,4 +445,152 @@
       Size = #{size,jdbcType=INTEGER}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  <resultMap id="BaseResultMap" type="Model.File">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="UUID" jdbcType="CHAR" property="uuid" />
+    <result column="Name" jdbcType="NVARCHAR" property="name" />
+    <result column="Suffix" jdbcType="NVARCHAR" property="suffix" />
+    <result column="UploadDate" jdbcType="TIMESTAMP" property="uploaddate" />
+    <result column="ModifyDate" jdbcType="TIMESTAMP" property="modifydate" />
+    <result column="PathNode" jdbcType="INTEGER" property="pathnode" />
+    <result column="MD5" jdbcType="NVARCHAR" property="md5" />
+    <result column="Point" jdbcType="INTEGER" property="point" />
+    <result column="Size" jdbcType="INTEGER" property="size" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, UUID, Name, Suffix, UploadDate, ModifyDate, PathNode, MD5, Point, Size
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from File
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from File
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="Model.File">
+    insert into File (ID, UUID, Name, 
+      Suffix, UploadDate, ModifyDate, 
+      PathNode, MD5, Point, 
+      Size)
+    values (#{id,jdbcType=INTEGER}, #{uuid,jdbcType=CHAR}, #{name,jdbcType=NVARCHAR}, 
+      #{suffix,jdbcType=NVARCHAR}, #{uploaddate,jdbcType=TIMESTAMP}, #{modifydate,jdbcType=TIMESTAMP}, 
+      #{pathnode,jdbcType=INTEGER}, #{md5,jdbcType=NVARCHAR}, #{point,jdbcType=INTEGER}, 
+      #{size,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="Model.File">
+    insert into File
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="uuid != null">
+        UUID,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="suffix != null">
+        Suffix,
+      </if>
+      <if test="uploaddate != null">
+        UploadDate,
+      </if>
+      <if test="modifydate != null">
+        ModifyDate,
+      </if>
+      <if test="pathnode != null">
+        PathNode,
+      </if>
+      <if test="md5 != null">
+        MD5,
+      </if>
+      <if test="point != null">
+        Point,
+      </if>
+      <if test="size != null">
+        Size,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uuid != null">
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="suffix != null">
+        #{suffix,jdbcType=NVARCHAR},
+      </if>
+      <if test="uploaddate != null">
+        #{uploaddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifydate != null">
+        #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pathnode != null">
+        #{pathnode,jdbcType=INTEGER},
+      </if>
+      <if test="md5 != null">
+        #{md5,jdbcType=NVARCHAR},
+      </if>
+      <if test="point != null">
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="Model.File">
+    update File
+    <set>
+      <if test="uuid != null">
+        UUID = #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="name != null">
+        Name = #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="suffix != null">
+        Suffix = #{suffix,jdbcType=NVARCHAR},
+      </if>
+      <if test="uploaddate != null">
+        UploadDate = #{uploaddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifydate != null">
+        ModifyDate = #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pathnode != null">
+        PathNode = #{pathnode,jdbcType=INTEGER},
+      </if>
+      <if test="md5 != null">
+        MD5 = #{md5,jdbcType=NVARCHAR},
+      </if>
+      <if test="point != null">
+        Point = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="size != null">
+        Size = #{size,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="Model.File">
+    update File
+    set UUID = #{uuid,jdbcType=CHAR},
+      Name = #{name,jdbcType=NVARCHAR},
+      Suffix = #{suffix,jdbcType=NVARCHAR},
+      UploadDate = #{uploaddate,jdbcType=TIMESTAMP},
+      ModifyDate = #{modifydate,jdbcType=TIMESTAMP},
+      PathNode = #{pathnode,jdbcType=INTEGER},
+      MD5 = #{md5,jdbcType=NVARCHAR},
+      Point = #{point,jdbcType=INTEGER},
+      Size = #{size,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>
