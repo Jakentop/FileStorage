@@ -13,8 +13,6 @@
   <body>
   ${message}
 
-  h
-
   $END$
   </body>
 </html>
