@@ -22,8 +22,6 @@ import java.util.Map;
 @RequestMapping("/hello")
 public class hello {
 
-
-
     @RequestMapping("/RetJsp")
     public String hello() {
         return "hello";
@@ -35,7 +33,6 @@ public class hello {
         modelAndView.addObject("message", "hello");
         return modelAndView;
     }
-
 
     @RequestMapping(value = "/reason")
     public @ResponseBody

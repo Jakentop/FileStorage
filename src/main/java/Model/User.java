@@ -13,6 +13,8 @@ public class User {
 
     private String eMail;
 
+    private Integer valid;
+
     public Integer getId() {
         return id;
     }
@@ -59,5 +61,13 @@ public class User {
 
     public void seteMail(String eMail) {
         this.eMail = eMail == null ? null : eMail.trim();
+    }
+
+    public Integer getValid() {
+        return valid;
+    }
+
+    public void setValid(Integer valid) {
+        this.valid = valid;
     }
 }

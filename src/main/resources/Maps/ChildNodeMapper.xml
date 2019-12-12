@@ -1,6 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Dao.ChildNodeMapper">
+  <resultMap id="BaseResultMap" type="Model.ChildNode">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="ParentID" jdbcType="INTEGER" property="parentid" />
+    <result column="ChildID" jdbcType="INTEGER" property="childid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, ParentID, ChildID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ChildNode
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ChildNode
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="Model.ChildNode">
+    insert into ChildNode (ID, ParentID, ChildID
+      )
+    values (#{id,jdbcType=INTEGER}, #{parentid,jdbcType=INTEGER}, #{childid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="Model.ChildNode">
+    insert into ChildNode
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="parentid != null">
+        ParentID,
+      </if>
+      <if test="childid != null">
+        ChildID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="childid != null">
+        #{childid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="Model.ChildNode">
+    update ChildNode
+    <set>
+      <if test="parentid != null">
+        ParentID = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="childid != null">
+        ChildID = #{childid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="Model.ChildNode">
+    update ChildNode
+    set ParentID = #{parentid,jdbcType=INTEGER},
+      ChildID = #{childid,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
     <resultMap id="BaseResultMap" type="Model.ChildNode">
         <id column="ID" jdbcType="INTEGER" property="id" />
         <result column="ParentID" jdbcType="INTEGER" property="parentid" />

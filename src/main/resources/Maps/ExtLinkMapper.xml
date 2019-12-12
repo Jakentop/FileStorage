@@ -235,4 +235,82 @@
       EndTime = #{endtime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  <resultMap id="BaseResultMap" type="Model.ExtLink">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="UserID" jdbcType="INTEGER" property="userid" />
+    <result column="Name" jdbcType="NVARCHAR" property="name" />
+    <result column="EndTime" jdbcType="TIMESTAMP" property="endtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, UserID, Name, EndTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ExtLink
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ExtLink
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="Model.ExtLink">
+    insert into ExtLink (ID, UserID, Name, 
+      EndTime)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{name,jdbcType=NVARCHAR}, 
+      #{endtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="Model.ExtLink">
+    insert into ExtLink
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="userid != null">
+        UserID,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="endtime != null">
+        EndTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="Model.ExtLink">
+    update ExtLink
+    <set>
+      <if test="userid != null">
+        UserID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        Name = #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="endtime != null">
+        EndTime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="Model.ExtLink">
+    update ExtLink
+    set UserID = #{userid,jdbcType=INTEGER},
+      Name = #{name,jdbcType=NVARCHAR},
+      EndTime = #{endtime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>
