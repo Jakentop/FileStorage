@@ -5,24 +5,21 @@
 <configuration>
     <!--导入链接信息-->
     <properties resource="DataBase.properties"></properties>
-    <!--环境配置，连接的数据库，这里使用的是MySQL-->
+    <!--环境配置，连接的数据库，这里使用的是SqlServer->
 
-    <environments default="mssql">
-        <environment id="mssql">
-            <!--指定事务管理的类型，这里简单使用Java的JDBC的提交和回滚设置-->
-            <transactionManager type="JDBC"></transactionManager>
-            <!--dataSource 指连接源配置，POOLED是JDBC连接对象的数据源连接池的实现-->
-            <dataSource type="POOLED">
-                <property name="driver" value="${Class}"></property>
-                <property name="url" value="${Url}"></property>
-                <property name="username" value="${UserName}"></property>
-                <property name="password" value="${Password}"></property>
-            </dataSource>
-        </environment>
-    </environments>
-    <mappers>
-        <!--这是告诉Mybatis区哪找持久化类的映射文件，对于在src下的文件直接写文件名，
-            如果在某包下，则要写明路径,如：com/mybatistest/config/User.xml-->
-        <mapper resource="Maps/UserMapper.xml"></mapper>
-    </mappers>
+<!-    <environments default="mssql">-->
+<!--        <environment id="mssql">-->
+<!--            &lt;!&ndash;指定事务管理的类型，这里简单使用Java的JDBC的提交和回滚设置&ndash;&gt;-->
+<!--            <transactionManager type="JDBC"></transactionManager>-->
+<!--            &lt;!&ndash;dataSource 指连接源配置，POOLED是JDBC连接对象的数据源连接池的实现&ndash;&gt;-->
+<!--            <dataSource type="POOLED">-->
+<!--                <property name="driver" value="${Class}"></property>-->
+<!--                <property name="url" value="${Url}"></property>-->
+<!--                <property name="username" value="${UserName}"></property>-->
+<!--                <property name="password" value="${Password}"></property>-->
+<!--            </dataSource>-->
+<!--        </environment>-->
+<!--    </environments>-->
+
+
 </configuration>
