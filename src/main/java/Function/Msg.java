@@ -48,7 +48,7 @@ public abstract class Msg {
      * @param map 数据字典
      * @return json格式字符串
      */
-    public static String ParseMap(int Status, String Title, Map map) {
+    public static String ParseMap(int Status, String Title, Object map) {
         Map<String, Object> ret = new HashMap<String, Object>();
         ret.put("status", Status);
         ret.put("title", Title);

@@ -16,7 +16,7 @@
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="${Class}"
                         connectionURL="${Url}"
-                        userId="${UserName}"
+                        userId="${User}"
                         password="${Password}">
         </jdbcConnection>
         <javaTypeResolver>
@@ -39,47 +39,47 @@
 
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
 
-        <table tableName="User" domainObjectName="User"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false"/>
+<!--        <table tableName="User" domainObjectName="User"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false"/>-->
 
-        <table tableName="File" domainObjectName="File"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false"/>
+<!--        <table tableName="File" domainObjectName="File"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false"/>-->
 
-        <table tableName="ChildNode" domainObjectName="ChildNode"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false"/>
+<!--        <table tableName="ChildNode" domainObjectName="ChildNode"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false"/>-->
 
-        <table tableName="ExtLink" domainObjectName="ExtLink"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false"/>
+<!--        <table tableName="ExtLink" domainObjectName="ExtLink"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false"/>-->
 
-        <table tableName="ExtObj" domainObjectName="ExtObj"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false"/>
+<!--        <table tableName="ExtObj" domainObjectName="ExtObj"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false"/>-->
 
-        <table tableName="Log" domainObjectName="Log"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false"/>
+<!--        <table tableName="Log" domainObjectName="Log"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false"/>-->
 
         <table tableName="Node" domainObjectName="Node"
                enableCountByExample="false"
@@ -88,12 +88,12 @@
                enableSelectByExample="false"
                selectByExampleQueryId="false"/>
 
-        <table tableName="FileNode" domainObjectName="FileNode"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false"/>
+<!--        <table tableName="FileNode" domainObjectName="FileNode"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false"/>-->
 
 
             </context>
