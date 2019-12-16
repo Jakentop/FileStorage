@@ -33,4 +33,26 @@ public class LogMapperTest extends Father {
 //        select
         pri(logMapper.selectByPrimaryKey(id));
     }
+
+    @Test
+    public void crud() {
+
+        Log log = new Log();
+
+        log.setTime(new Date());
+        log.setUserid(1);
+//        insert
+        logMapper.insertSelective(log);
+        int id = log.getId();
+//        select
+        pri(logMapper.selectByPrimaryKey(id));
+
+//        update
+
+        log.setEvent("fjskdfdsflfjdskl");
+        logMapper.updateByPrimaryKeySelective(log);
+//        select
+        pri(logMapper.selectByPrimaryKey(id));
+
+    }
 }
