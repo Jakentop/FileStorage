@@ -1,6 +1,7 @@
 package Dao;
 
 import Model.User;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,12 @@ public interface UserMapper {
 
     //    根据主账号ID获取所有子账号信息
     @Select("select * from [User] where ParentID=#{value}")
-    List<User> selectByParentID(int value);
+    List<User> selectChildByParentID(int value);
+
+    //    根据用户名称删除账号
+    @Delete("delete [User] where UserName=#{value}")
+    int deleteByUserName(String value);
+
 
     int deleteByPrimaryKey(Integer id);
 

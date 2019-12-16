@@ -1,5 +1,6 @@
 package Function;
 
+import Model.User;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
@@ -20,9 +21,22 @@ public abstract class Msg {
     /**
      * 状态集合
      */
+    /**
+     * OK 请求成功
+     */
     public final static int OK=200;
-    public final static int ERR=500;
-    public final static int LoginAuth = 566;
+    /**
+     * ERR 请求方法错误，请查看接口文档
+     */
+    public final static int ERR=555;
+    /**
+     * LoginAuth 当前没有登录需要登录权限
+     */
+    public final static int LoginAuth = 556;
+    /**
+     * NoAuth 当前用户没有权限
+     */
+    public final static int NoAuth=557;
 
     /**
      * 将一个字符串封装为json格式并序列化
@@ -129,4 +143,5 @@ public abstract class Msg {
         }
         return JSONObject.parseObject(JSON.toJSONString(object, filter), Map.class);
     }
+
 }
