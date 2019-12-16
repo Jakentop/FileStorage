@@ -17,6 +17,12 @@
   <sql id="Base_Column_List" >
     ID, UserName, Password, ParentID, LogicNode, E_Mail, Valid
   </sql>
+<!--  根据用户名查询用户信息-->
+  <select id="selectByUserName" resultMap="BaseResultMap" parameterType="String">
+    select * from [User]
+    where UserName=#{name};
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

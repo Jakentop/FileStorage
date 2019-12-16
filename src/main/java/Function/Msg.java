@@ -22,6 +22,7 @@ public abstract class Msg {
      */
     public final static int OK=200;
     public final static int ERR=500;
+    public final static int LoginAuth = 566;
 
     /**
      * 将一个字符串封装为json格式并序列化
