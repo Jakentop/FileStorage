@@ -44,7 +44,7 @@ public class UserControllor {
                                          @RequestParam(defaultValue = "-1") int type,
                                          @RequestParam(defaultValue = "-1") int logicnode) {
 //        验证空
-        if (name == "" || password == "" || e_mail == "" || type != 0|| type !=1) {
+        if (name == "" || password == "" || e_mail == "" || type != 0&& type !=1) {
             return Msg.ParseStr(Msg.ERR, "/user/register", "");
         }
 
@@ -101,8 +101,8 @@ public class UserControllor {
 
 //        处理数据
         List<User> getUsers = userMapper.selectByUserName(name);
-        if(getUsers.size()>0) return Msg.ParseStr(501, "/user/login", "");
-        if (getUsers.get(0).getPassword() == MD5.getsec(password)) {
+        if(getUsers.size()==0) return Msg.ParseStr(501, "/user/login", "");
+        if (getUsers.get(0).getPassword().compareTo(MD5.getsec(password)) ==0) {
 //            登录成功
             session.setAttribute("user", getUsers.get(0));
 //            跳转到首页
