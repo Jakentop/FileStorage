@@ -8,12 +8,12 @@ import Model.ExtObj;
 import Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -50,8 +50,8 @@ public class UserControllor {
 
 //        验证
         try {
-            if(password.length()>=8) throw new Exception("密码长度错误");
-            if(Vaild.E_mail(e_mail)) throw new Exception("邮箱格式错误");
+            if(password.length()<8) throw new Exception("密码长度错误");
+            if(!Vaild.E_mail(e_mail)) throw new Exception("邮箱格式错误");
             if (userMapper.selectByUserName(name).size() > 0 || userMapper.selectByEMail(name).size() > 0) {
                 throw new Exception("用户名或邮箱重复");
             }
@@ -113,13 +113,19 @@ public class UserControllor {
         return Msg.ParseStr(Msg.OK, "/user/login", "");
     }
 
-
+    /**
+     * 验证重复邮箱或者重复信息
+     * @param value
+     * @param type
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/checkrepeat", method = RequestMethod.POST)
     public @ResponseBody
-    String checkrepeat(@RequestParam(defaultValue = "") String value,
-                       @RequestParam(defaultValue = "-1") int type) {
+    String checkrepeat( @RequestParam(defaultValue = "") String value,
+                        @RequestParam(defaultValue="-1") int type, HttpServletRequest request) {
 //        验证
-        if(value==""||type!=0||type!=1){
+        if(value==""||(type!=0&&type!=1)){
             return Msg.ParseStr(Msg.ERR, "/user/checkrepeat", "");
         }
 
@@ -130,7 +136,7 @@ public class UserControllor {
             List<User> get = userMapper.selectByUserName(value);
             if (get.size()>0) flag = false;
         } else if (type == 1) {
-//            密码判断
+//            邮箱判断
             List<User> get = userMapper.selectByEMail(value);
             if(get.size()>0) flag = false;
         }

@@ -38,7 +38,7 @@ public class UserControllorMapperTest extends Father {
 
     @Test
     public void selectByParentID() {
-        pri(userMapper.selectByParentID(1));
+        pri(userMapper.selectChildByParentID(1));
     }
 
     @Test
