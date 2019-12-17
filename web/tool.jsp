@@ -43,7 +43,7 @@
         <div style="margin-top:10px;margin-left:5%;" v-for="(item,index) in items">
             <el-input placeholder="key"  v-model="item.key" style="display: inline-block;width: 40%;">
             </el-input>
-            <el-input placeholder="key" v-model="item.value"style="display: inline-block;width: 40%;">
+            <el-input placeholder="value" v-model="item.value"style="display: inline-block;width: 40%;">
             </el-input>
             <el-button  v-on:click="delitem(index)" type="danger" icon="el-icon-delete" circle></el-button>
         </div>
