@@ -7,7 +7,7 @@ package Function;
 public abstract class Vaild {
 
     public static boolean E_mail(String e_mail) {
-        String EMAIL_REGEX = "^[\\w-\\.+]*[\\w-\\.]\\@([\\w-]+\\.)+[\\w]+[\\w]{1}quot";
+        String EMAIL_REGEX = "^[\\w-\\.+]*[\\w-\\.]\\@([\\w-]+\\.)+[\\w]+[\\w]{1}";
         return e_mail.matches(EMAIL_REGEX);
     }
 
