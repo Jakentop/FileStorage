@@ -1,10 +1,12 @@
-package Controllor.User;
+package Controllor;
 
+import Dao.NodeMapper;
 import Dao.UserMapper;
 import Function.MD5;
 import Function.Msg;
 import Function.Vaild;
 import Model.ExtObj;
+import Model.Node;
 import Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -24,6 +26,9 @@ public class UserControllor {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private NodeMapper nodeMapper;
 
     /**
      * 用户注册
@@ -65,18 +70,29 @@ public class UserControllor {
         user.setValid(0);
         user.setUsername(name);
         user.seteMail(e_mail);
+        Node node = new Node();
         if (type == 0) {
-            user.setLogicnode(0);
+//            主账号
+            node.setParentnode(0);
+            node.setName("/");
+            nodeMapper.insertSelective(node);//插入根目录信息
+            user.setLogicnode(node.getId());
             user.setParentid(0);
         }
         else
         {
+//            子账号
             User logUser = (User) session.getAttribute("user");
             user.setParentid(logUser.getId());
             user.setLogicnode(logicnode);
         }
 
         userMapper.insert(user);
+        if(user.getParentid()==0)
+        {
+            node.setUserid(user.getId());
+            nodeMapper.updateByPrimaryKey(node);
+        }
 //      成功跳转登录
 
         return Msg.ParseStr(Msg.OK, "/user/register", "注册成功");
@@ -95,7 +111,7 @@ public class UserControllor {
                  @RequestParam(defaultValue = "") String name,
                  @RequestParam(defaultValue = "") String password) {
 //        验证
-        if(name==""||password==""){
+        if(name.equals("")||password.equals("")){
             return Msg.ParseStr(Msg.ERR, "/user/login", "");
         }
 

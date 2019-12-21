@@ -1,0 +1,21 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+.child-panel .left {
+    display: inline-block;
+    width: 20%;
+}
+
+.child-panel .right {
+    display: inline-block;
+    width: 79%;
+}
+
+.child-panel .tr{
+    margin: 10px;
+}
+.child-panel .table{
+    width:80%;
+    margin-left: 10%;
+}

@@ -46,12 +46,12 @@
 <!--               enableSelectByExample="false"-->
 <!--               selectByExampleQueryId="false"/>-->
 
-<!--        <table tableName="File" domainObjectName="File"-->
-<!--               enableCountByExample="false"-->
-<!--               enableUpdateByExample="false"-->
-<!--               enableDeleteByExample="false"-->
-<!--               enableSelectByExample="false"-->
-<!--               selectByExampleQueryId="false"/>-->
+        <table tableName="File" domainObjectName="File"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
 
 <!--        <table tableName="ChildNode" domainObjectName="ChildNode"-->
 <!--               enableCountByExample="false"-->
@@ -81,19 +81,19 @@
 <!--               enableSelectByExample="false"-->
 <!--               selectByExampleQueryId="false"/>-->
 
-        <table tableName="Node" domainObjectName="Node"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false"/>
-
-<!--        <table tableName="FileNode" domainObjectName="FileNode"-->
+<!--        <table tableName="Node" domainObjectName="Node"-->
 <!--               enableCountByExample="false"-->
 <!--               enableUpdateByExample="false"-->
 <!--               enableDeleteByExample="false"-->
 <!--               enableSelectByExample="false"-->
 <!--               selectByExampleQueryId="false"/>-->
+
+        <table tableName="FileNode" domainObjectName="FileNode"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
 
 
             </context>

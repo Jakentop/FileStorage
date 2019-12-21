@@ -30,7 +30,10 @@ public abstract class FileParse {
         }
         else
         {
-            return a;
+            String c[] = new String[2];
+            c[0] = a.length > 0 ? a[0] : "";
+            c[1] = a.length > 1 ? a[1] : "";
+            return c;
         }
     }
 

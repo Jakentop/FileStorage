@@ -54,6 +54,20 @@
 </div>
 </div>
 
+<%--用户登录前置条件--%>
+<div id="user">
+    <div style="margin-top:15px;margin-bottom: 5px;">需要用户登录：<el-switch
+            v-model="islogin"
+            active-color="#13ce66"
+            v-on:click="!islogin"
+            inactive-color="#ff4949">
+    </el-switch></div>
+    <div v-if="islogin" style="margin-top: 15px;padding-left:20px; ">
+        <div style="display: inline-block;width: 48%;">用户名：<el-input style="display: inline-block;width: 80%;" v-model="username" placeholder="请输入内容"></el-input></div>
+        <div style="display: inline-block;width: 48%;">密码：<el-input style="display: inline-block;width: 80%;" v-model="password" placeholder="请输入内容"></el-input></div>
+    </div>
+</div>
+
 <!-- 提交 -->
 <div id="sub" style="text-align: center;">
     <el-button style="margin-top:50px; width:25%" v-on:click="submit" type="primary" :loading="status">{{text}}</el-button>
@@ -88,6 +102,15 @@
         data: {
             host:window.location.href.replace("tool.jsp",""),
             url:""
+        }
+    })
+    //用户登录
+    var userlog=new Vue({
+        el:"#user",
+        data:{
+            islogin:true,
+            username:"",
+            password:""
         }
     })
     // 按钮与参数
@@ -146,7 +169,28 @@
                 // console.log(flag)
                 // console.log(data)
                 // console.log(url)
+                //判断是否需要预处理用户登录状态
+                if (userlog.islogin == true) {
+                    //Post请求
+                    axios({
+                        method: 'post',
+                        url: input.host+"user/login",
+                        data: Qs.stringify({name:userlog.username, password: userlog.password})
+                    })
+                        .then(
+                            function(response)
+                            {
+                                result.res=response.data;
 
+                                result.$message(response.data.status==200?"登录成功":"用户名或密码错误")
+                                console.log(response)
+                            }
+                        )
+                        .catch(function (error) { // 请求失败处理
+                            result.$message.error(error.message);
+                            console.log(error);
+                        });
+                }
                 // 开始处理
                 if(flag==true)//判断是需要带参数
                 {

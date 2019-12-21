@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
-import static org.junit.Assert.*;
-
 /**
  * 测试FileNode节点
  *
@@ -39,12 +37,9 @@ public class FileNodeMapperTest extends Father {
 
         File file = new File();
         file.setMd5("thiis is a test");
-        file.setModifydate(new Date());
-        file.setName("这是一个测试");
-        file.setPathnode(1);
         file.setPoint(1);
         file.setSize(128);
-        file.setSuffix("com");
+
         file.setUuid("fjdskflsdfjei");
 //        insert
         fileMapper.insert(file);
@@ -53,7 +48,7 @@ public class FileNodeMapperTest extends Father {
         Node node = new Node();
         node.setName("这是测试节点");
         node.setParentnode(0);
-        node.setUserid(6);
+        node.setUserid(33);
 //        insert
         nodeMapper.insert(node);
         NodeID = node.getId();
@@ -70,6 +65,10 @@ public class FileNodeMapperTest extends Father {
     public void CRUD_all() {
         FileNode fileNode = new FileNode();
         fileNode.setFileid(FileID);
+        fileNode.setModifydate(new Date());
+        fileNode.setUploaddate(new Date());
+        fileNode.setName("test");
+        fileNode.setSuffix("txt");
         fileNode.setNodeid(NodeID);
 //        insert
         fileNodeMapper.insert(fileNode);

@@ -10,6 +10,23 @@
   <sql id="Base_Column_List" >
     ID, Name, ParentNode, UserID
   </sql>
+<!--  获取当前节点下一层子节点-->
+  <select id="selectAllChildNode" resultType="Model.Node" parameterType="java.lang.Integer">
+    select * from Node
+    where ID in(
+        select ChildID from ChildNode where ParentID=#{nodeID}
+      )
+  </select>
+
+<!--  获取当前节点下所有子节点中某个名称-->
+  <select id="selectChildByNodeIDAndNodeName" resultType="Model.Node">
+    select * from Node where ID in(
+        select ChildID from ChildNode where ParentID=#{nodeID} and ChildID in(
+            select b.ID from Node as b where Name=#{nodeName}
+          )
+      )
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
