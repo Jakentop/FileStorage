@@ -50,7 +50,7 @@ public class ChildControllor {
         if (loginUser==null||!loginUser.getUsername().equals(UserName))
             return Msg.ParseList(Msg.LoginAuth, "/child/getchilds", new ArrayList());
 
-        if (loginUser.getId()!=0)
+        if (loginUser.getParentid()!=0)
             return Msg.ParseList(557,"/child/getchilds",new ArrayList());
 
 //        处理数据
@@ -95,9 +95,9 @@ public class ChildControllor {
         }
         User loginUser = (User) session.getAttribute("user");
         try {
-            if (Password.length()<8) throw new Exception("503");
-            if(!Vaild.E_mail(E_mail)) throw new Exception("502");
-            if (MD5.getsec(Password) != loginUser.getPassword()) throw new Exception("500");
+            if (Password!=null&&Password.length()<8) throw new Exception("503");
+            if(E_mail!=null&&!Vaild.E_mail(E_mail)) throw new Exception("502");
+            if (!MD5.getsec(CheckPassword) .equals(loginUser.getPassword()) ) throw new Exception("500");
             if(loginUser.getParentid()!=0) throw new Exception(((Integer) Msg.NoAuth).toString());
             if(LogicNode!=null&&nodeMapper.selectByPrimaryKey(LogicNode)==null) throw new Exception("501");
         } catch (Exception e) {
@@ -166,11 +166,11 @@ public class ChildControllor {
             if (UserName == null || Password == null || ChildName == null)
                 throw new Exception(((Integer) Msg.ERR).toString());
             User loginUser = (User)session.getAttribute("user");
-            if (loginUser.getUsername()!=UserName)
+            if (!loginUser.getUsername().equals(UserName))
                 throw new Exception(((Integer) Msg.LoginAuth).toString());
             if(loginUser.getParentid()!=0)
                 throw new Exception(((Integer) Msg.NoAuth).toString());
-            if(loginUser.getPassword()!=MD5.getsec(Password))
+            if(!MD5.getsec(Password) .equals(loginUser.getPassword()))
                 throw new Exception("503");
 
         } catch (Exception e) {
@@ -178,7 +178,7 @@ public class ChildControllor {
         }
 
 //        处理
-        if (userMapper.deleteByUserName(UserName) == 1) {
+        if (userMapper.deleteByUserName(ChildName) == 1) {
             return Msg.ParseStr(Msg.OK, "/child/delchild", "");
         }
         else

@@ -57,7 +57,7 @@ public class UserControllor {
         try {
             if(password.length()<8) throw new Exception("密码长度错误");
             if(!Vaild.E_mail(e_mail)) throw new Exception("邮箱格式错误");
-            if (userMapper.selectByUserName(name).size() > 0 || userMapper.selectByEMail(name).size() > 0) {
+            if (userMapper.selectByUserName(name).size() > 0 || userMapper.selectByEMail(e_mail).size() > 0) {
                 throw new Exception("用户名或邮箱重复");
             }
 
