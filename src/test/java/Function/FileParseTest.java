@@ -11,7 +11,7 @@ public class FileParseTest {
     private String temp;
     @Before
     public void setUp() throws Exception {
-        temp = "/123/123/123";
+        temp = "";
     }
 
     @Test

@@ -47,7 +47,7 @@ public class ChildControllor {
         if(UserName=="")return Msg.ParseList(Msg.ERR,"/child/getchilds",new ArrayList());
 
         User loginUser = (User) session.getAttribute("user");
-        if (loginUser==null||loginUser.getUsername()!=UserName)
+        if (loginUser==null||!loginUser.getUsername().equals(UserName))
             return Msg.ParseList(Msg.LoginAuth, "/child/getchilds", new ArrayList());
 
         if (loginUser.getId()!=0)
@@ -148,6 +148,14 @@ public class ChildControllor {
         }
     }
 
+    /**
+     * 删除子账号
+     * @param ChildName
+     * @param UserName
+     * @param Password
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/delchild", method = RequestMethod.POST)
     public @ResponseBody String delchild(String ChildName,
                             String UserName,

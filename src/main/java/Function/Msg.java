@@ -24,19 +24,24 @@ public abstract class Msg {
     /**
      * OK 请求成功
      */
-    public final static int OK=200;
+    public final static Integer OK=200;
     /**
      * ERR 请求方法错误，请查看接口文档
      */
-    public final static int ERR=555;
+    public final static Integer ERR=555;
     /**
      * LoginAuth 当前没有登录需要登录权限
      */
-    public final static int LoginAuth = 556;
+    public final static Integer LoginAuth = 556;
     /**
      * NoAuth 当前用户没有权限
      */
-    public final static int NoAuth=557;
+    public final static Integer NoAuth=557;
+
+    /**
+     * UnKnow 未知错误，应该是服务器出现问题
+     */
+    public final static Integer UnKnow=599;
 
     /**
      * 将一个字符串封装为json格式并序列化

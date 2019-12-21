@@ -5,12 +5,14 @@ import org.springframework.util.DigestUtils;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.MessageDigest;
+import java.util.UUID;
 
 public abstract class MD5 {
 
     /**
-     * 生成不可以的md5打码
+     * 生成不可逆的md5打码
      * @param Str
      * @return string md5密码
      */
@@ -72,6 +74,24 @@ public abstract class MD5 {
         return DigestUtils.md5DigestAsHex(new FileInputStream(path));
     }
 
+
+    /**
+     * 获取某个FileStream流中的md5码
+     * @param stream
+     * @return
+     * @throws IOException
+     */
+    public static String getFile(InputStream stream) throws IOException {
+        return DigestUtils.md5DigestAsHex(stream);
+    }
+
+    /**
+     * 获取UUID
+     * @return 返回32位数据库中标准格式
+     */
+    public static String  getUUID() {
+        return UUID.randomUUID().toString().replace("-", "");
+    }
 
 
 }

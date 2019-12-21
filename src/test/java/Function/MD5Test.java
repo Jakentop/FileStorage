@@ -22,7 +22,7 @@ public class MD5Test {
 
     @Test
     public void getstring() {
-        System.out.println(MD5.getstring("1234"));
+        System.out.println(MD5.getsec("EFG@ABCLMD"));
 
     }
 

@@ -10,6 +10,31 @@ public class NodeMapperTest extends Father {
     private NodeMapper nodeMapper;
 
     @Test
+    public void selectNodeByNodeIDAndUserID() {
+        nodeMapper.selectNodeByNodeIDAndUserID(0, 31);
+    }
+
+    @Test
+    public void selectChildByNodeIDAndNodeName() {
+        nodeMapper.selectChildByNodeIDAndNodeName(24,"test");
+    }
+
+    @Test
+    public void selectAllChildNode() {
+        nodeMapper.selectAllChildNode(24);
+    }
+
+    @Test
+    public void insert() {
+        Node node = new Node();
+        node.setName("text");
+        node.setParentnode(24);
+        node.setUserid(33);
+        nodeMapper.insert(node);
+        nodeMapper.deleteByPrimaryKey(node.getId());
+    }
+
+    @Test
     public void CUDR_all()
     {
 
