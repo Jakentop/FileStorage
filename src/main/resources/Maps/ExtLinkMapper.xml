@@ -6,9 +6,11 @@
     <result column="UserID" property="userid" jdbcType="INTEGER" />
     <result column="Name" property="name" jdbcType="NVARCHAR" />
     <result column="EndTime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="Type" property="type" jdbcType="INTEGER" />
+    <result column="Password" property="password" jdbcType="NCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, UserID, Name, EndTime
+    ID, UserID, Name, EndTime, Type, Password
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -21,15 +23,19 @@
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="Model.ExtLink" >
-    insert into ExtLink (UserID, Name,
-      EndTime)
-    values (#{userid,jdbcType=INTEGER}, #{name,jdbcType=NVARCHAR},
-      #{endtime,jdbcType=TIMESTAMP})
+    insert into ExtLink (ID, UserID, Name, 
+      EndTime, Type, Password
+      )
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{name,jdbcType=NVARCHAR}, 
+      #{endtime,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER}, #{password,jdbcType=NCHAR}
+      )
   </insert>
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="Model.ExtLink" >
     insert into ExtLink
     <trim prefix="(" suffix=")" suffixOverrides="," >
-
+      <if test="id != null" >
+        ID,
+      </if>
       <if test="userid != null" >
         UserID,
       </if>
@@ -39,9 +45,17 @@
       <if test="endtime != null" >
         EndTime,
       </if>
+      <if test="type != null" >
+        Type,
+      </if>
+      <if test="password != null" >
+        Password,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
       <if test="userid != null" >
         #{userid,jdbcType=INTEGER},
       </if>
@@ -50,6 +64,12 @@
       </if>
       <if test="endtime != null" >
         #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=NCHAR},
       </if>
     </trim>
   </insert>
@@ -65,6 +85,12 @@
       <if test="endtime != null" >
         EndTime = #{endtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="type != null" >
+        Type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="password != null" >
+        Password = #{password,jdbcType=NCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
@@ -72,7 +98,9 @@
     update ExtLink
     set UserID = #{userid,jdbcType=INTEGER},
       Name = #{name,jdbcType=NVARCHAR},
-      EndTime = #{endtime,jdbcType=TIMESTAMP}
+      EndTime = #{endtime,jdbcType=TIMESTAMP},
+      Type = #{type,jdbcType=INTEGER},
+      Password = #{password,jdbcType=NCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

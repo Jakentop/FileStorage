@@ -5,7 +5,6 @@ import Model.FileNode;
 import Model.Node;
 import Model.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.accept.PathExtensionContentNegotiationStrategy;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -38,7 +37,7 @@ public class DelFile extends FileControllerFather {
                 throw new Exception(Msg.LoginAuth.toString());
             }
 //          预处理需要复制的节点
-            for(String t : Nodes.split("|"))
+            for(String t : Nodes.split("\\|"))
             {
                 if(t.length()<2) throw new Exception(Msg.ERR.toString());
                 NodeLists.add(new innerNodes(Integer.parseInt(t.substring(0, 1)), Integer.parseInt(t.substring(1))));

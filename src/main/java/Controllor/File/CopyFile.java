@@ -1,7 +1,6 @@
 package Controllor.File;
 
 import Function.Msg;
-import Model.ChildNode;
 import Model.FileNode;
 import Model.Node;
 import Model.User;
@@ -45,7 +44,7 @@ public class CopyFile extends FileControllerFather {
                 throw new Exception(Msg.LoginAuth.toString());
             }
 //          预处理需要复制的节点
-            for(String t : CopyNodes.split("|"))
+            for(String t : CopyNodes.split("\\|"))
             {
                 if(t.length()<2) throw new Exception(Msg.ERR.toString());
                 NodeLists.add(new innerNodes(Integer.parseInt(t.substring(0, 1)), Integer.parseInt(t.substring(1))));

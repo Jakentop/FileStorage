@@ -15,7 +15,7 @@
   </sql>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from FileNode
     where PathNode = #{pathnode,jdbcType=INTEGER}
@@ -26,11 +26,11 @@
   </delete>
   <insert id="insert" useGeneratedKeys="true" keyProperty="pathnode" parameterType="Model.FileNode" >
     insert into FileNode (FileID, NodeID,
-      Name, Suffix, UploadDate, 
-      ModifyDate)
+                          Name, Suffix, UploadDate,
+                          ModifyDate)
     values (#{fileid,jdbcType=INTEGER}, #{nodeid,jdbcType=INTEGER},
-      #{name,jdbcType=NVARCHAR}, #{suffix,jdbcType=NVARCHAR}, #{uploaddate,jdbcType=TIMESTAMP}, 
-      #{modifydate,jdbcType=TIMESTAMP})
+            #{name,jdbcType=NVARCHAR}, #{suffix,jdbcType=NVARCHAR}, #{uploaddate,jdbcType=TIMESTAMP},
+            #{modifydate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pathnode" parameterType="Model.FileNode" >
     insert into FileNode
@@ -102,11 +102,11 @@
   <update id="updateByPrimaryKey" parameterType="Model.FileNode" >
     update FileNode
     set FileID = #{fileid,jdbcType=INTEGER},
-      NodeID = #{nodeid,jdbcType=INTEGER},
-      Name = #{name,jdbcType=NVARCHAR},
-      Suffix = #{suffix,jdbcType=NVARCHAR},
-      UploadDate = #{uploaddate,jdbcType=TIMESTAMP},
-      ModifyDate = #{modifydate,jdbcType=TIMESTAMP}
+        NodeID = #{nodeid,jdbcType=INTEGER},
+        Name = #{name,jdbcType=NVARCHAR},
+        Suffix = #{suffix,jdbcType=NVARCHAR},
+        UploadDate = #{uploaddate,jdbcType=TIMESTAMP},
+        ModifyDate = #{modifydate,jdbcType=TIMESTAMP}
     where PathNode = #{pathnode,jdbcType=INTEGER}
   </update>
 </mapper>

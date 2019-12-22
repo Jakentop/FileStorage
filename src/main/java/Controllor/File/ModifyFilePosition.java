@@ -1,6 +1,5 @@
 package Controllor.File;
 
-import Dao.NodeMapper;
 import Function.Msg;
 import Model.ChildNode;
 import Model.FileNode;
@@ -46,7 +45,7 @@ public class ModifyFilePosition extends FileControllerFather {
                 throw new Exception(Msg.LoginAuth.toString());
             }
 //          预处理需要移动的节点
-            for(String t : Nodes.split("|"))
+            for(String t : Nodes.split("\\|"))
             {
                 if(t.length()<2) throw new Exception(Msg.ERR.toString());
                 NodeLists.add(new innerNodes(Integer.parseInt(t.substring(0, 1)), Integer.parseInt(t.substring(1))));

@@ -10,6 +10,11 @@
   <sql id="Base_Column_List" >
     ID, ExtID, Type, ObjID
   </sql>
+  <select id="selectAllExtobjByExLinkName" resultMap="BaseResultMap">
+    select * from ExtObj where ExtID in (
+        select ID from ExtLink where Name=#{name}
+      )
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

@@ -161,13 +161,18 @@ public class DirControllor {
             if(NodeID==null||NodePreName==null||NodeNewName==null) throw new Exception(Msg.ERR.toString());
 
 //            节点存在性
-            if(nodeMapper.selectByPrimaryKey(NodeID)==null) throw new Exception("501");
+            Node curNode = nodeMapper.selectByPrimaryKey(NodeID);
+            if(curNode==null) throw new Exception("501");
 
 //            当前用户没有权限
             if(!AuthCheck(NodeID,loginUser)) throw new Exception(Msg.NoAuth.toString());
 
+            if (curNode.getName() != NodePreName) {
+                throw new Exception("501");
+            }
+
 //            存在重名
-            if(nodeMapper.selectChildByNodeIDAndNodeName(NodeID,NodeNewName)==null)
+            if(nodeMapper.selectChildByNodeIDAndNodeName(curNode.getParentnode(),NodeNewName)==null)
                 throw new Exception("502");
 
 

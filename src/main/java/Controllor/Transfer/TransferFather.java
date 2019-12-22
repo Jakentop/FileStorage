@@ -1,20 +1,24 @@
-package Controllor.File;
+package Controllor.Transfer;
 
-import Dao.*;
+import Dao.FileMapper;
+import Dao.FileNodeMapper;
+import Dao.NodeMapper;
+import Dao.UserMapper;
+import Model.File;
 import Model.FileNode;
 import Model.Node;
 import Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.context.ServletConfigAware;
 
 import javax.servlet.ServletConfig;
-import java.util.HashMap;
+import java.io.OutputStream;
 import java.util.List;
-import java.util.Map;
 
-@Controller
-public class FileControllerFather implements ServletConfigAware {
+public class TransferFather implements ServletConfigAware {
+
+    @Autowired
+    protected NodeMapper nodeMapper;
 
     @Autowired
     protected UserMapper userMapper;
@@ -25,18 +29,11 @@ public class FileControllerFather implements ServletConfigAware {
     @Autowired
     protected FileNodeMapper fileNodeMapper;
 
-    @Autowired
-    protected NodeMapper nodeMapper;
-
-    @Autowired
-    protected ChildNodeMapper childNodeMapper;
-
     protected ServletConfig servletConfig;
     public void setServletConfig(ServletConfig servletConfig) {
         this.servletConfig = servletConfig;
     }
 
-    // region tool 工具
     /**
      * 判断当前账号是否拥有节点权限
      * @param nodeID
@@ -71,23 +68,6 @@ public class FileControllerFather implements ServletConfigAware {
         }
     }
 
-    /**
-     * 返回前端的map格式
-     * @param NodeID
-     * @param NodeName
-     * @param Type
-     * @param Childs
-     * @return
-     */
-    public static Map getres(Integer NodeID, String NodeName, int Type, List Childs) {
-        Map res = new HashMap();
-        res.put("NodeID", NodeID);
-        res.put("NodeName", NodeName);
-        res.put("Type", Type);
-        res.put("Childs", Childs);
-        return res;
-    }
-// endregion
 }
 
 /**
@@ -103,9 +83,15 @@ class innerNodes{
     @Autowired
     private FileNodeMapper fileNodeMapper;
 
-    public innerNodes(Integer Type, Integer NodeID) {
+    @Autowired
+    private FileMapper fileMapper;
+
+    public innerNodes(Integer Type, Integer NodeID,NodeMapper nodeMapper,FileNodeMapper fileNodeMapper,FileMapper fileMapper) {
         this.Type = Type;
         this.NodeID = NodeID;
+        this.nodeMapper = nodeMapper;
+        this.fileMapper = fileMapper;
+        this.fileNodeMapper = fileNodeMapper;
     }
     public Integer Type;
     public Integer NodeID;
@@ -141,11 +127,77 @@ class innerNodes{
             FileNode file = fileNodeMapper.selectByPrimaryKey(this.NodeID);
             NodeID = file.getNodeid();
         }
-            Node t = nodeMapper.selectNodeByNodeIDAndUserID(NodeID,
-                    user.getParentid() == 0 ? user.getId() : user.getParentid());
-            return t != null;
+        Node t = nodeMapper.selectNodeByNodeIDAndUserID(NodeID,
+                user.getParentid() == 0 ? user.getId() : user.getParentid());
+        return t != null;
 
     }
+
+    public static boolean DFS(List<downFile> res, Integer nodeID, String path,
+                              NodeMapper nodeMapper, FileNodeMapper fileNodeMapper, FileMapper fileMapper) {
+        if(nodeID==null) return true;
+        List<Node> cur = nodeMapper.selectAllChildNode(nodeID);
+        if(cur==null) return true;
+        else
+        {
+            for (Node t : cur) {
+                List<FileNode> curf = fileNodeMapper.selectAllFilebyNodeID(nodeID);
+                for (FileNode curt : curf) {
+                    File f = fileMapper.selectByPrimaryKey(curt.getFileid());
+//                    添加当前目录下的文件
+                    res.add(new downFile(curt.getName() + curt.getSuffix(),
+                            path +  t.getName(),
+                            f.getUuid()));
+                }
+                DFS(res, t.getId(), path+t.getName()+"/",
+                        nodeMapper,fileNodeMapper,fileMapper);
+            }
+        }
+        return true;
+    }
+
 }
 
+class downFile{
+    private String filename;
+    private String path;
+    private String uuid;
+    private OutputStream stream;
+    public downFile(String filename, String path,String uuid) {
+        this.filename = filename;
+        this.path = path;
+        this.uuid=uuid;
+    }
 
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public OutputStream getStream() {
+        return stream;
+    }
+
+    public void setStream(OutputStream stream) {
+        this.stream = stream;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+}

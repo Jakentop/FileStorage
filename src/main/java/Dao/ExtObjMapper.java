@@ -1,8 +1,15 @@
 package Dao;
 
 import Model.ExtObj;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ExtObjMapper {
+
+
+    List<ExtObj> selectAllExtobjByExLinkName(@Param("name") String UUID);
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(ExtObj record);
