@@ -49,7 +49,7 @@ public abstract class Msg {
      * @param Status 状态为类中的状态
      * @param Title 消息标题
      * @param message 消息信息
-     * @return String json序列化的字符串,格式{"status":"状态","title"}
+     * @return String json序列化的字符串,格式{"status":"状态","file"}
      */
     public static String ParseStr(int Status, String Title, String message) {
 

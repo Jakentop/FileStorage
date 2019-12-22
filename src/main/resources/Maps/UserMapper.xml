@@ -17,14 +17,23 @@
   <sql id="Base_Column_List" >
     ID, UserName, Password, ParentID, LogicNode, E_Mail, Valid
   </sql>
+
+  <select id="selectChildByParentID" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from [User] where ParentID=#{value}
+  </select>
+
 <!--  根据用户名查询用户信息-->
   <select id="selectByUserName" resultMap="BaseResultMap" parameterType="String">
-    select * from [User]
+    select
+    <include refid="Base_Column_List" />
+     from [User]
     where UserName=#{name};
   </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from [User]
     where ID = #{id,jdbcType=INTEGER}

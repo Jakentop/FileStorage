@@ -66,7 +66,7 @@ public class DirControllor {
         List<Map> res = new ArrayList<Map>();
         Stack<Integer> Nodequeue = new Stack<Integer>();
         Nodequeue.push(Node);//推入初始节点
-        for (int i = 0; i < Deep; i++) {
+        for (int i = 0; i <= Deep; i++) {
             ArrayList<Integer> childID = new ArrayList<Integer>();
             ArrayList<Integer> childID_all = new ArrayList<Integer>();
             while(!Nodequeue.empty())
@@ -80,6 +80,7 @@ public class DirControllor {
                     childID.add(index.getId());
                 }
 //              将当前节点和子节点信息压入返回结果中
+                if(i!=0)
                 res.add(tool.resMap(cur.getId(), cur.getName(), childID_all, cur.getParentnode()));
             }
 //          保存下一层级子元素

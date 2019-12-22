@@ -61,6 +61,7 @@ public class ChildControllor {
             Map temp = new HashMap();
             temp.put("name", user.getUsername());
             temp.put("logicnode", user.getLogicnode());
+            temp.put("logicanodeName", nodeMapper.selectByPrimaryKey(user.getLogicnode()).getName());
             temp.put("e_mail", user.geteMail());
             res.add(temp);
         }
@@ -158,14 +159,15 @@ public class ChildControllor {
      */
     @RequestMapping(value = "/delchild", method = RequestMethod.POST)
     public @ResponseBody String delchild(String ChildName,
-                            String UserName,
                             String Password,
                             HttpSession session) {
+        User loginUser = (User)session.getAttribute("user");
+        String UserName = loginUser.getUsername();
 //        验证
         try {
             if (UserName == null || Password == null || ChildName == null)
                 throw new Exception(((Integer) Msg.ERR).toString());
-            User loginUser = (User)session.getAttribute("user");
+
             if (!loginUser.getUsername().equals(UserName))
                 throw new Exception(((Integer) Msg.LoginAuth).toString());
             if(loginUser.getParentid()!=0)

@@ -18,6 +18,8 @@
     <script src="js/vue/sq.min.js"></script>
     <%--    引入样式--%>
     <link rel="stylesheet" href="css/element/element.css">
+
+    <script src="js/component/dirselect.js"></script>
 </head>
 <body>
 <div id="temp">
@@ -35,8 +37,15 @@
     <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
 </el-upload>
 </div>
+
+<div id="two">
+    <dirselect></dirselect>
+</div>
 </body>
 <script>
+    var two=new Vue({
+        el: "#two"
+    })
     var temp=new Vue({
         el:"#temp",
         data() {

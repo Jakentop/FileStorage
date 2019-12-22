@@ -49,16 +49,16 @@
                 <div style="margin-top: 30px;"></div>
                     <el-menu default-active="1" @select="open_main" default-openeds="[2]" class="el-menu-vertical-demo" :collapse="isCollapse">
                         <el-menu-item index="1">
-                            <template slot="title">
+                            <template slot="file">
                                 <i class="el-icon-location"></i>
-                                <span slot="title">文件存储</span>
+                                <span slot="file">文件存储</span>
                             </template>
                         </el-menu-item>
 
                         <el-submenu index="2">
-                            <template slot="title">
+                            <template slot="file">
                                 <i class="el-icon-location"></i>
-                                <span slot="title">外链管理</span>
+                                <span slot="file">外链管理</span>
                             </template>
                             <el-menu-item-group>
                                 <el-menu-item index="2-1">外链查看</el-menu-item>
@@ -68,23 +68,23 @@
                         </el-submenu>
 
                         <el-menu-item index="3">
-                            <template slot="title">
+                            <template slot="file">
                                 <i class="el-icon-location"></i>
-                                <span slot="title">个人设置</span>
+                                <span slot="file">个人设置</span>
                             </template>
                         </el-menu-item>
 
                         <el-menu-item index="4">
-                            <template slot="title">
+                            <template slot="file">
                                 <i class="el-icon-location"></i>
-                                <span slot="title">子账号设置</span>
+                                <span slot="file">子账号设置</span>
                             </template>
                         </el-menu-item>
 
                         <el-menu-item index="5">
-                            <template slot="title">
+                            <template slot="file">
                                 <i class="el-icon-location"></i>
-                                <span slot="title">仪表盘</span>
+                                <span slot="file">仪表盘</span>
                             </template>
                         </el-menu-item>
 

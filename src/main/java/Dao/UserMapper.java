@@ -19,7 +19,6 @@ public interface UserMapper {
     List<User> selectByEMail(String value);
 
     //    根据主账号ID获取所有子账号信息
-    @Select("select * from [User] where ParentID=#{value}")
     List<User> selectChildByParentID(int value);
 
     //    根据用户名称删除账号

@@ -1,0 +1,9 @@
+.file .toolbar{
+    width:70%;
+    margin-top:20px;
+    margin-left: 30px;
+}
+
+.tree .toolbar .button{
+    margin: 15px;
+}
