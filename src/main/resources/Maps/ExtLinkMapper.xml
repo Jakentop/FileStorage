@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Dao.ExtLinkMapper" >
+  <resultMap id="BaseResultMap" type="Model.ExtLink" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="UserID" property="userid" jdbcType="INTEGER" />
+    <result column="Name" property="name" jdbcType="NVARCHAR" />
+    <result column="EndTime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="Type" property="type" jdbcType="INTEGER" />
+    <result column="Password" property="password" jdbcType="NCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, UserID, Name, EndTime, Type, Password
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ExtLink
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ExtLink
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="Model.ExtLink" >
+    insert into ExtLink (ID, UserID, Name, 
+      EndTime, Type, Password
+      )
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{name,jdbcType=NVARCHAR}, 
+      #{endtime,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER}, #{password,jdbcType=NCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="Model.ExtLink" >
+    insert into ExtLink
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="endtime != null" >
+        EndTime,
+      </if>
+      <if test="type != null" >
+        Type,
+      </if>
+      <if test="password != null" >
+        Password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=NCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="Model.ExtLink" >
+    update ExtLink
+    <set >
+      <if test="userid != null" >
+        UserID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        Name = #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="endtime != null" >
+        EndTime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        Type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="password != null" >
+        Password = #{password,jdbcType=NCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="Model.ExtLink" >
+    update ExtLink
+    set UserID = #{userid,jdbcType=INTEGER},
+      Name = #{name,jdbcType=NVARCHAR},
+      EndTime = #{endtime,jdbcType=TIMESTAMP},
+      Type = #{type,jdbcType=INTEGER},
+      Password = #{password,jdbcType=NCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
