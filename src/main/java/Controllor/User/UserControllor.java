@@ -1,4 +1,4 @@
-package Controllor;
+package Controllor.User;
 
 import Dao.NodeMapper;
 import Dao.UserMapper;
