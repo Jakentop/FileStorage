@@ -35,9 +35,9 @@ public class NewFile extends FileControllerFather {
     @RequestMapping(value = "/newfile",method = RequestMethod.POST)
     public @ResponseBody
     String NewFile (String FileName,
-                   Integer NodeID,
-                   String UserName,
-                   HttpSession session) {
+                    Integer NodeID,
+                    String UserName,
+                    HttpSession session) {
 
         String path=servletConfig.getServletContext().getInitParameter("path");
         User loninUser = (User) session.getAttribute("user");
