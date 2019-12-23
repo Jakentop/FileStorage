@@ -109,7 +109,7 @@ public class DirControllor {
         try {
 //            验证空
             if (CurNodeID == null || NewNodeName == null) throw new Exception(Msg.ERR.toString());
-
+            if(CurNodeID==0) CurNodeID = loginUser.getLogicnode();
 //            验证用户
             if (!AuthCheck(CurNodeID,loginUser)) throw new Exception(Msg.NoAuth.toString());
 
@@ -160,7 +160,7 @@ public class DirControllor {
         try {
 //            验空
             if(NodeID==null||NodePreName==null||NodeNewName==null) throw new Exception(Msg.ERR.toString());
-
+            if(NodeID==0) NodeID = loginUser.getLogicnode();
 //            节点存在性
             Node curNode = nodeMapper.selectByPrimaryKey(NodeID);
             if(curNode==null) throw new Exception("501");
@@ -168,12 +168,12 @@ public class DirControllor {
 //            当前用户没有权限
             if(!AuthCheck(NodeID,loginUser)) throw new Exception(Msg.NoAuth.toString());
 
-            if (curNode.getName() != NodePreName) {
+            if (!curNode.getName().equals(NodePreName) ) {
                 throw new Exception("501");
             }
 
 //            存在重名
-            if(nodeMapper.selectChildByNodeIDAndNodeName(curNode.getParentnode(),NodeNewName)==null)
+            if(nodeMapper.selectChildByNodeIDAndNodeName(curNode.getParentnode(),NodeNewName)!=null)
                 throw new Exception("502");
 
 

@@ -97,15 +97,15 @@ public class FileControllerFather implements ServletConfigAware {
  */
 class innerNodes{
 
-    @Autowired
     private NodeMapper nodeMapper;
 
-    @Autowired
     private FileNodeMapper fileNodeMapper;
 
-    public innerNodes(Integer Type, Integer NodeID) {
+    public innerNodes(Integer Type, Integer NodeID,NodeMapper nodeMapper,FileNodeMapper fileNodeMapper) {
         this.Type = Type;
         this.NodeID = NodeID;
+        this.fileNodeMapper = fileNodeMapper;
+        this.nodeMapper = nodeMapper;
     }
     public Integer Type;
     public Integer NodeID;

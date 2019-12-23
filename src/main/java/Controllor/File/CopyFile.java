@@ -33,6 +33,10 @@ public class CopyFile extends FileControllerFather {
                     HttpSession session) {
         User loginUser = (User) session.getAttribute("user");
         List<innerNodes> NodeLists = new ArrayList<innerNodes>();
+//        欺骗
+        UserName = loginUser.getUsername();
+        if(PreNodeID==0) PreNodeID = loginUser.getLogicnode();
+        if(NewNodeID==0) NewNodeID = loginUser.getLogicnode();
 //        验证
         try {
 //          验证空
@@ -47,7 +51,8 @@ public class CopyFile extends FileControllerFather {
             for(String t : CopyNodes.split("\\|"))
             {
                 if(t.length()<2) throw new Exception(Msg.ERR.toString());
-                NodeLists.add(new innerNodes(Integer.parseInt(t.substring(0, 1)), Integer.parseInt(t.substring(1))));
+                NodeLists.add(new innerNodes(Integer.parseInt(t.substring(0, 1)), Integer.parseInt(t.substring(1)),
+                        nodeMapper,fileNodeMapper));
             }
 //            节点存在性和权限
             boolean flag = true;

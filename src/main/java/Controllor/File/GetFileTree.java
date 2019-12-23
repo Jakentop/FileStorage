@@ -17,14 +17,19 @@ public class GetFileTree extends FileControllerFather {
 
     @RequestMapping("/getfiletree")
     public @ResponseBody
-    String getfiletree(String UserName,
-                       Integer NodeID,
+    String getfiletree(Integer NodeID,
                        Integer Deep,
                        HttpSession session) {
 
         User loginUser = (User) session.getAttribute("user");
+        String UserName = loginUser.getUsername();
+//        默认从根节点开始往下返回
+        if (NodeID == null||NodeID==0) {
+            NodeID = loginUser.getLogicnode();
+        }
 //        验证
         try {
+
 //            验空
             if (UserName == null || NodeID == null || Deep == null) {
                 throw new Exception(Msg.ERR.toString());
@@ -52,7 +57,9 @@ public class GetFileTree extends FileControllerFather {
 //          获取目录
         List<Map> allNodes = new ArrayList<Map>();
         Stack<Integer> queueNodes = new Stack<Integer>();
-        for (int i = 0; i < Deep; i++) {
+//        推入初始节点
+        queueNodes.push(NodeID);
+        for (int i = 0; i <= Deep; i++) {
             List<Integer> curLevelID = new ArrayList<Integer>();
             while (!queueNodes.empty()) {
                 List<Integer> curChilds = new ArrayList<Integer>();
@@ -64,18 +71,25 @@ public class GetFileTree extends FileControllerFather {
 //                添加到当前全部下级ID中，在下次while后压入堆栈
                 curLevelID.addAll(curChilds);
 //                添加到节点列表中
+                if(i!=0)
                 allNodes.add(getres(cur.getId(), cur.getName(), 0, curChilds));
             }
             queueNodes.addAll(curLevelID);
         }
 //        处理文件
         List<Map> allFiles = new ArrayList<Map>();
-        for (Map t : allNodes) {
-            List<FileNode> re = fileNodeMapper.selectAllFilebyNodeID((Integer) t.get("NodeID"));
-            for (FileNode res : re) {
-                allFiles.add(getres(res.getPathnode(), res.getName(), 1, null));
-            }
+//        添加根节点下的文件
+        List<FileNode> re = fileNodeMapper.selectAllFilebyNodeID(NodeID);
+        for (FileNode res : re) {
+            allFiles.add(getres(res.getPathnode(), res.getName(), 1, null));
         }
+////        添加其余节点下的文件
+//        for (Map t : allNodes) {
+//            re = fileNodeMapper.selectAllFilebyNodeID((Integer) t.get("NodeID"));
+//            for (FileNode res : re) {
+//                allFiles.add(getres(res.getPathnode(), res.getName(), 1, null));
+//            }
+//        }
 //        合并
         allNodes.addAll(allFiles);
 //        返回

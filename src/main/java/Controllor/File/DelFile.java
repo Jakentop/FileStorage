@@ -40,7 +40,8 @@ public class DelFile extends FileControllerFather {
             for(String t : Nodes.split("\\|"))
             {
                 if(t.length()<2) throw new Exception(Msg.ERR.toString());
-                NodeLists.add(new innerNodes(Integer.parseInt(t.substring(0, 1)), Integer.parseInt(t.substring(1))));
+                NodeLists.add(new innerNodes(Integer.parseInt(t.substring(0, 1)), Integer.parseInt(t.substring(1)),
+                        nodeMapper,fileNodeMapper));
             }
 //            节点存在性和权限
             boolean flag = true;

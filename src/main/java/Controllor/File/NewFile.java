@@ -37,12 +37,15 @@ public class NewFile extends FileControllerFather {
 
         String path=servletConfig.getServletContext().getInitParameter("path");
         User loninUser = (User) session.getAttribute("user");
+//        欺骗
+        UserName = loninUser.getUsername();
 //        验证
 
         try {
 //            验证空
             if (FileName == null || NodeID == null || UserName == null)
                 throw new Exception(Msg.ERR.toString());
+            if(NodeID==0) NodeID = loninUser.getLogicnode();
 //            验证目录是否存在
             if(nodeMapper.selectByPrimaryKey(NodeID)==null)
                 throw new Exception("501");
