@@ -12,8 +12,8 @@ public interface ChildNodeMapper {
      * @param ParentID
      * @return
      */
-    @Delete("delete * from ChildNode where ParentID=#{ParentID}")
-    ChildNode deleteAllChildByParentID(@Param("ParentID") Integer ParentID);
+    @Delete("delete from ChildNode where ParentID=#{ParentID}")
+    int deleteAllChildByParentID(@Param("ParentID") Integer ParentID);
 
     /**
      * 根据父级节点和子节点获取ID
@@ -31,7 +31,7 @@ public interface ChildNodeMapper {
      * @return
      */
     @Delete("delete from ChildNode where ParentID=#{parentID} and ChildID=#{ChildID}")
-    int deleteByParentIDAndChildID(@Param("ParentID") Integer ParentID, @Param("ChildID") Integer ChildID);
+    int deleteByParentIDAndChildID(@Param("parentID") Integer ParentID, @Param("ChildID") Integer ChildID);
 
     int deleteByPrimaryKey(Integer id);
 

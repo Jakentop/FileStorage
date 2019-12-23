@@ -51,7 +51,7 @@
                 label="子账号名">
         </el-table-column>
         <el-table-column
-                prop="logicanodeName"
+                prop="logicnode"
                 label="逻辑节点">
         </el-table-column>
         <el-table-column

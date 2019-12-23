@@ -26,6 +26,8 @@ public class DelFile extends FileControllerFather {
 
         User loginUser = (User) session.getAttribute("user");
         List<innerNodes> NodeLists = new ArrayList<innerNodes>();
+//        欺骗
+        UserName = loginUser.getUsername();
 //        验证
         try {
 //          验证空
@@ -33,7 +35,7 @@ public class DelFile extends FileControllerFather {
                 throw new Exception(Msg.ERR.toString());
             }
 //            用户登录一致性
-            if (UserName != loginUser.getUsername()) {
+            if (!UserName.equals(loginUser.getUsername())) {
                 throw new Exception(Msg.LoginAuth.toString());
             }
 //          预处理需要复制的节点

@@ -40,7 +40,8 @@ public class Upload extends TransferFather{
                   HttpSession session) throws IOException {
 
         User loginUser = (User) session.getAttribute("user");
-
+//        欺骗
+        if(NodeID==0) NodeID = loginUser.getLogicnode();
 //        验证
         try {
             if (file.isEmpty() || NodeID == null) {

@@ -2,13 +2,11 @@
 
 //route
 var path = {
-    "1": "tool.jsp",
-    "2": "",
-    "2-1":"",
-    "2-2":"",
-    "3": "",
-    "4": "child.jsp",
-    "5": ""
+    "0": "",
+    "1": "file.jsp",
+    "2": "chain.jsp",
+    "3": "child.jsp",
+    "5": "tool.jsp"
 };
 
 var route_main= new Vue({

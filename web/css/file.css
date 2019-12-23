@@ -7,3 +7,9 @@
 .tree .toolbar .button{
     margin: 15px;
 }
+
+
+/*重写样式*/
+.el-upload-list__item-name [class^=el-icon]{
+    height:auto;
+}

@@ -3,14 +3,8 @@
 
 //标题
 var title=new Vue({
-    el: "#title",
-    data:{
-
-    },
-    mehtods:{
-
-    }
-})
+    el: "#title"
+});
 
 //工具条toolbar
 var toolbar=new Vue({
@@ -97,16 +91,39 @@ var toolbar=new Vue({
         },
     //    删除
         Delete:function () {
+        //    获取当前选中的值
+            if(filemain.CheckList.length==0)
+            {
+                toolbar.$message("请至少选中一个节点操作");
+                return;
+            }
+            else
+            {
+            //    处理类型
+                var da = filemain.CheckList.concat();
+                for (i = 0; i < da.length; i++) {
+                    da[i].typestr = da[i].type == 0 ? '目录' : '文件';
+                }
+                deletefile.tabledata = da;
+                deletefile.dialogVisible = true;
+            }
 
         },
     //    上传
         Upload:function () {
+            upload.dialogVisible=true
+            upload.uploadparams={NodeID: navigation.Dirs[navigation.Dirs.length - 1].id};
 
         },
     //    下载
         Download: function () {
-
-
+        //    获取需要下载的内容
+            let dict = filemain.CheckList.concat();
+            for (i = 0; i < dict.length; i++) {
+                dict[i].typestr = (dict[i].type == 0) ? "目录" : "文件";
+            }
+            download.tabledata = dict;
+            download.dialogVisible = true;
         }
 
     }
@@ -168,7 +185,13 @@ var filemain=new Vue({
     },
     methods:{
         //根据当前层NodeID获取内部目录和文件
-        getFileList:function (NodeID,Name) {
+        getFileList:function (NodeID,Name,Type) {
+            if(Type==1)
+            {
+                filemain.$message("当前选择的不是一个目录");
+                return ;
+            }
+
             d={"Deep":1};
             if(NodeID!==0)
                 d['NodeID']=NodeID;
@@ -191,7 +214,8 @@ var filemain=new Vue({
         },
     //    元素双击事件，向下加载
         loadnext:function (e) {
-            this.getFileList(e.id,e.name);
+            console.log("fds"+e.type);
+            this.getFileList(e.id,e.name,e.type);
         },
     //    单击选中事件
         check: function (e,type) {
@@ -353,4 +377,126 @@ var rename=new Vue({
     }
 })
 
-filemain.getFileList(0,'/');
+//文件上传对话框
+var upload=new Vue({
+    el: "#upload",
+    data:{
+        dialogVisible:false,
+        fileList:[],
+        uploadparams:{
+            NodeID:0
+        }
+    },
+    methods: {
+        submitUpload() {
+            this.$refs.upload.submit();
+        },
+        handleRemove(file, fileList) {
+            console.log(file, fileList);
+        },
+        handlePreview(file) {
+            console.log(file);
+        },
+        uploadSectionFile(param){
+            console.log(param);
+        },
+        handleClose(done) {
+            navigation.reflush();
+            done();
+        }
+    }
+})
+
+//文件删除框
+var deletefile=new Vue({
+    el:"#delete",
+    data:{
+        tabledata:[],
+        dialogVisible:false
+    },
+    methods:{
+    //    提交
+        submit: function () {
+        //    处理
+            string = "";
+            string+=this.tabledata[0].type+""+this.tabledata[0].id;
+            for (i = 1; i < this.tabledata.length; i++) {
+                string += "|" + this.tabledata[i].type + "" + this.tabledata[i].id;
+            }
+        //    提交
+            var d={Nodes:string}
+            axios.post('file/delfile', Qs.stringify(d))
+                .then(function (res) {
+                    if (res.data.status != 200)
+                        StatusSearch(deletefile, res.data.status, '/file/delfile');
+                    else
+                    {
+                        filemain.$message("删除成功");
+                        deletefile.dialogVisible = false;
+                        navigation.reflush();
+                    }
+
+                })
+                .catch(function () {
+                    filemain.$message.error("网络错误");
+                });
+        },
+        cancel:function () {
+            this.dialogVisible=false;
+        },
+        handleClose:function (done) {
+            this.tabledata=[]
+            done();
+        }
+        
+    }
+})
+
+//下载框
+var download=new Vue({
+    el:"#download",
+    data:{
+        tabledata:[],
+        dialogVisible:false
+    },
+    methods:{
+        handleClose:function (done) {
+            this.tabledata = [];
+            dialogVisible = false;
+            done();
+        },
+        submit:function () {
+            //    处理
+            string = "";
+            string+=this.tabledata[0].type+""+this.tabledata[0].id;
+            for (i = 1; i < this.tabledata.length; i++) {
+                string += "|" + this.tabledata[i].type + "" + this.tabledata[i].id;
+            }
+            //    提交
+            var d={NodeList:string}
+            axios.post('transfer/downloadlink', Qs.stringify(d))
+                .then(function (res) {
+                    if (res.data.status != 200) {
+                        StatusSearch(filemain, res.data.status, '/transfer/downloadlink')
+                    } else {
+                        //    获取下载地址成功
+                        filemain.$message("获取下载地址成功，准备下载");
+                        setTimeout(window.location.href = 'transfer/download?Url=' + res.data.data.url
+                            , 1000);
+                    //    善后处理
+                        download.tabledata = [];
+                        download.dialogVisible = false;
+
+                    }
+                }).catch(function () {
+                filemain.$message.error("网络错误");
+            });
+        },
+        cancel:function () {
+            
+        }
+    }
+})
+
+
+filemain.getFileList(0,'/',0);

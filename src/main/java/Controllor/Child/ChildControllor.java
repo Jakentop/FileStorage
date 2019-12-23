@@ -44,9 +44,10 @@ public class ChildControllor {
                                           @RequestParam(defaultValue = "") String UserName)
     {
 //        验证
-        if(UserName=="")return Msg.ParseList(Msg.ERR,"/child/getchilds",new ArrayList());
+
 
         User loginUser = (User) session.getAttribute("user");
+        if(UserName.equals("")) UserName = loginUser.getUsername();
         if (loginUser==null||!loginUser.getUsername().equals(UserName))
             return Msg.ParseList(Msg.LoginAuth, "/child/getchilds", new ArrayList());
 
@@ -61,7 +62,7 @@ public class ChildControllor {
             Map temp = new HashMap();
             temp.put("name", user.getUsername());
             temp.put("logicnode", user.getLogicnode());
-            temp.put("logicanodeName", nodeMapper.selectByPrimaryKey(user.getLogicnode()).getName());
+            temp.put("logicanodeName", nodeMapper.selectByPrimaryKey(user.getLogicnode()));
             temp.put("e_mail", user.geteMail());
             res.add(temp);
         }
@@ -152,7 +153,6 @@ public class ChildControllor {
     /**
      * 删除子账号
      * @param ChildName
-     * @param UserName
      * @param Password
      * @param session
      * @return

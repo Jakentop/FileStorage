@@ -9,12 +9,12 @@ var child=new Vue({
     },
     methods:{
         getdata: function () {
-            axios.post("child/getchilds", Qs.stringify({UserName: "zyz"}))
+            axios.post("child/getchilds")
                 .then(function (res) {
                     console.log(res);
                     if(res.data.status==200)
                     {
-                        child.childData = res.data.data;
+                        child.childData = res.data.data.concat();
                     }
                     else
                         child.$message.error("网络错误");

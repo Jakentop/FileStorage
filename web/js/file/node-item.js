@@ -34,7 +34,7 @@ Vue.component('node-item',{
         },
         doubleCheck:function () {
 
-            var d={"name":this.$props.name,"id":this.$attrs.nodeid};
+            var d={"name":this.$props.name,"id":this.$attrs.nodeid,'type':this.$props.Type};
             this.$emit('getid',d);
         }
     },

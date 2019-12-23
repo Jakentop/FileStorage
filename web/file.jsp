@@ -110,6 +110,100 @@
         </el-dialog>
     </div>
 
+<%--    删除框--%>
+    <div id="delete">
+
+        <el-dialog
+                title="删除信息"
+                :visible.sync="dialogVisible"
+                width="30%"
+                :before-close="handleClose">
+            <div style="margin-top:10px;margin-left: 10px;font-size: 20px;">需要删除的节点</div>
+            <el-table
+                    :data="tabledata"
+                    stripe
+                    style="width: 100%">
+                <el-table-column
+                        prop="id"
+                        label="ID"
+                        width="50">
+                </el-table-column>
+                <el-table-column
+                        prop="name"
+                        label="节点名称"
+                        width="180">
+                </el-table-column>
+                <el-table-column
+                        prop="typestr"
+                        label="节点类型">
+                </el-table-column>
+            </el-table>
+<%--            提交或取消按键--%>
+            <div style="margin-top:20px">
+                <el-button v-on:click="submit">确定</el-button>
+                <el-button v-on:click="cancel">取消</el-button>
+
+            </div>
+        </el-dialog>
+    </div>
+
+<%--    上传框--%>
+    <div id="upload">
+        <el-dialog title="收货地址" :visible.sync="dialogVisible" :before-close="handleClose" width="%50">
+<%--            上传组件--%>
+            <el-upload
+                    style="height: 450px;"
+                    ref="upload"
+                    action="transfer/upload"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :file-list="fileList"
+                    :data="uploadparams"
+                    :auto-upload="false"
+                    multiple>
+                <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+            </el-upload>
+        </el-dialog>
+    </div>
+
+<%--    下载框--%>
+    <div id="download">
+        <el-dialog
+                title="下载"
+                :visible.sync="dialogVisible"
+                width="50%"
+                :before-close="handleClose">
+            <div style="margin:10px 0 0 10px;font-size: 20px;">
+                下载的文件</div>
+            <el-table
+                    :data="tabledata"
+                    stripe
+                    style="width: 100%">
+                <el-table-column
+                        prop="id"
+                        label="ID"
+                        width="50">
+                </el-table-column>
+                <el-table-column
+                        prop="name"
+                        label="节点名称"
+                        width="180">
+                </el-table-column>
+                <el-table-column
+                        prop="typestr"
+                        label="节点类型">
+                </el-table-column>
+            </el-table>
+            <%--            提交或取消按键--%>
+            <div style="margin-top:20px">
+                <el-button v-on:click="submit">确定</el-button>
+                <el-button v-on:click="cancel">取消</el-button>
+            </div>
+        </el-dialog>
+    </div>
+
 </div>
 </body>
 <script src="js/StatusSearch.js"></script>
