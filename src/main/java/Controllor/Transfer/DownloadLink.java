@@ -4,6 +4,7 @@ import Function.MD5;
 import Function.Msg;
 import Model.File;
 import Model.FileNode;
+import Model.Node;
 import Model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,13 +65,25 @@ public class DownloadLink extends TransferFather {
 //                文件
                 FileNode fn = fileNodeMapper.selectByPrimaryKey(innernode.NodeID);
                 File f = fileMapper.selectByPrimaryKey(fn.getFileid());
-                downfiles.add(new downFile(fn.getName() + fn.getSuffix(), "/", f.getUuid()));
+                if(fn.getSuffix().equals(""))
+                    downfiles.add(new downFile(fn.getName(), "", f.getUuid()));
+                else
+                    downfiles.add(new downFile(fn.getName() +"."+ fn.getSuffix(), "", f.getUuid()));
             }
             else
             {
 //                目录
-                innerNodes.DFS(downfiles, innernode.NodeID, "",
-                        nodeMapper,fileNodeMapper,fileMapper);
+                Node t = nodeMapper.selectByPrimaryKey(innernode.NodeID);
+                List<FileNode> curf = fileNodeMapper.selectAllFilebyNodeID(t.getId());
+                for (FileNode curt : curf) {
+                    File f = fileMapper.selectByPrimaryKey(curt.getFileid());
+//                    添加当前目录下的文件
+                    downfiles.add(new downFile(curt.getName() + curt.getSuffix(),
+                            ""+ t.getName()+"/",
+                            f.getUuid()));
+                }
+                innerNodes.DFS(downfiles, innernode.NodeID, "" + t.getName(),
+                        nodeMapper, fileNodeMapper, fileMapper);
             }
         }
 //        返回

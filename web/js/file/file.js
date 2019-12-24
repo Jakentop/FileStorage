@@ -16,63 +16,60 @@ var toolbar=new Vue({
         type: 0,//0表示复制，1表示移动
         prenode:0
     },
-    methods:{
+    methods: {
 //    注册按钮事件
 //        新建
-        Create:function () {
-            newfile.dialogVisible=true;
-            newfile.t="文件"
+        Create: function () {
+            newfile.dialogVisible = true;
+            newfile.t = "文件"
         },
-    //    新建目录
-        CreateDir:function(){
-            newfile.dialogVisible=true;
-            newfile.t="目录"
+        //    新建目录
+        CreateDir: function () {
+            newfile.dialogVisible = true;
+            newfile.t = "目录"
         },
-    //    重命名
-        Rename:function () {
+        //    重命名
+        Rename: function () {
             //获取当前选中的信息
             var t = filemain.CheckList;
-            if(t.length==0) filemain.$message("请选择一个文件")
+            if (t.length == 0) filemain.$message("请选择一个文件")
             if (t.length > 1) {
                 filemain.$message("只能选中一个文件");
-            }
-            else{
+            } else {
                 rename.oldname = t[0].name;
                 rename.id = t[0].id;
                 rename.type = t[0].type;
-                rename.dialogVisible=true;
+                rename.dialogVisible = true;
             }
 
         },
-    //    复制
-        Copy:function () {
+        //    复制
+        Copy: function () {
             //判断当前功能
             if (this.copy == "复制") {
-                if(this.move=="粘贴") this.$message("请先完成当前移动操作");
-                else if(filemain.CheckList.length==0)this.$message("请至少选择一个文件");
-                else
-                {
+                if (this.move == "粘贴") this.$message("请先完成当前移动操作");
+                else if (filemain.CheckList.length == 0) this.$message("请至少选择一个文件");
+                else {
                     //    开始记录复制信息
                     this.buffer = filemain.CheckList;
-                    this.prenode=navigation.Dirs[navigation.Dirs.length - 1].id;
+                    this.prenode = navigation.Dirs[navigation.Dirs.length - 1].id;
                     //    修改按钮作用
-                    this.copy="粘贴"
+                    this.copy = "粘贴"
                 }
-            }
-            else if (this.copy == "粘贴") {
-            //    粘贴操作
-            //      计算请求参数
-                let string=""
+            } else if (this.copy == "粘贴") {
+                //    粘贴操作
+                //      计算请求参数
+                let string = ""
                 string += this.buffer[0].type + "" + this.buffer[0].id;
                 for (i = 1; i < this.buffer.length; i++) {
-                    string += "|"+this.buffer[i].type + "" + this.buffer[i].id;
+                    string += "|" + this.buffer[i].type + "" + this.buffer[i].id;
                 }
                 curfather = navigation.Dirs[navigation.Dirs.length - 1].id;
-            //    设置请求参数
-                let d={
-                    PreNodeID:this.prenode,
-                    NewNodeID:curfather,
-                    CopyNodes:string
+                //    设置请求参数
+                let d = {
+                    PreNodeID: this.prenode,
+                    NewNodeID: curfather,
+                    CopyNodes: string
                 }
                 axios.post("file/copyfile", Qs.stringify(d))
                     .then(function (res) {
@@ -85,21 +82,56 @@ var toolbar=new Vue({
             }
 
         },
-    //    移动
-        Remove:function () {
-
+        //    移动
+        Remove: function () {
+            if (this.move == "移动") {
+                //    保存当前状态
+                if (filemain.CheckList.length == 0) this.$message("请至少选择一个文件");
+                //    开始记录复制信息
+                this.buffer = filemain.CheckList;
+                this.prenode = navigation.Dirs[navigation.Dirs.length - 1].id;
+                //    修改按钮作用
+                this.move = "粘贴";
+            } else if (this.move == "粘贴") {
+                //    粘贴操作
+                //      计算请求参数
+                let string = ""
+                string += this.buffer[0].type + "" + this.buffer[0].id;
+                for (i = 1; i < this.buffer.length; i++) {
+                    string += "|" + this.buffer[i].type + "" + this.buffer[i].id;
+                }
+                curfather = navigation.Dirs[navigation.Dirs.length - 1].id;
+                //    设置请求参数
+                let d = {
+                    PrePositionNodeID: this.prenode,
+                    NewPosisitonNodeID: curfather,
+                    Nodes: string
+                }
+                axios.post("file/modifyfileposition", Qs.stringify(d))
+                    .then(function (res) {
+                        if (res.data.status != 200)
+                            StatusSearch(tool, res.data.status, "/file/modifyfileposition");
+                        else {
+                            filemain.$message("移动成功");
+                            navigation.reflush();
+                            //    执行清理
+                            toolbar.buffer = [];
+                            toolbar.move = "移动";
+                        }
+                    })
+                    .catch(function () {
+                        filemain.$message.error("网络错误");
+                    });
+            }
         },
-    //    删除
-        Delete:function () {
-        //    获取当前选中的值
-            if(filemain.CheckList.length==0)
-            {
+        //    删除
+        Delete: function () {
+            //    获取当前选中的值
+            if (filemain.CheckList.length == 0) {
                 toolbar.$message("请至少选中一个节点操作");
                 return;
-            }
-            else
-            {
-            //    处理类型
+            } else {
+                //    处理类型
                 var da = filemain.CheckList.concat();
                 for (i = 0; i < da.length; i++) {
                     da[i].typestr = da[i].type == 0 ? '目录' : '文件';
@@ -109,23 +141,32 @@ var toolbar=new Vue({
             }
 
         },
-    //    上传
-        Upload:function () {
-            upload.dialogVisible=true
-            upload.uploadparams={NodeID: navigation.Dirs[navigation.Dirs.length - 1].id};
+        //    上传
+        Upload: function () {
+            upload.dialogVisible = true
+            upload.uploadparams = {NodeID: navigation.Dirs[navigation.Dirs.length - 1].id};
 
         },
-    //    下载
+        //    下载
         Download: function () {
-        //    获取需要下载的内容
+            //    获取需要下载的内容
             let dict = filemain.CheckList.concat();
             for (i = 0; i < dict.length; i++) {
                 dict[i].typestr = (dict[i].type == 0) ? "目录" : "文件";
             }
             download.tabledata = dict;
             download.dialogVisible = true;
+        },
+        //    外链生成
+        CreateChain:function () {
+            //    获取需要下载的内容
+            let dict = filemain.CheckList.concat();
+            for (i = 0; i < dict.length; i++) {
+                dict[i].typestr = (dict[i].type == 0) ? "目录" : "文件";
+            }
+            createchain.tabledata = dict;
+            createchain.dialogVisible = true;
         }
-
     }
 })
 
@@ -402,6 +443,7 @@ var upload=new Vue({
         },
         handleClose(done) {
             navigation.reflush();
+            this.fileList=[];
             done();
         }
     }
@@ -498,5 +540,58 @@ var download=new Vue({
     }
 })
 
+//外链确认框
+var createchain=new Vue({
+    el:"#createchain",
+    data:{
+        tabledata:[],
+        dialogVisible:false,
+        needpassword:false,
+        num:0,
+        isparam:true
+    },
+    methods:{
+        handleClose:function (done) {
+            this.tabledata = [];
+            dialogVisible = false;
+            done();
+        },
+        submit:function () {
+            //    处理
+            string = "";
+            string+=this.tabledata[0].type+""+this.tabledata[0].id;
+            for (i = 1; i < this.tabledata.length; i++) {
+                string += "|" + this.tabledata[i].type + "" + this.tabledata[i].id;
+            }
+            //    提交
+            var d={
+                Nodes:string,
+                Day:-1
+            }
+            if (this.isparam == true) {
+                d['Day']=this.num;
+                    d['isCheck']=this.needpassword;
+            }
+            axios.post('chain/newchain', Qs.stringify(d))
+                .then(function (res) {
+                    if (res.data.status != 200) {
+                        StatusSearch(filemain, res.data.status, '/chain/newchain')
+                    } else {
+                        //    获取下载地址成功
+                        filemain.$message("外链生成成功");
+                        //    善后处理
+                        createchain.tabledata = [];
+                        createchain.dialogVisible = false;
+
+                    }
+                }).catch(function () {
+                filemain.$message.error("网络错误");
+            });
+        },
+        cancel:function () {
+            this.dialogVisible=false;
+        }
+    }
+})
 
 filemain.getFileList(0,'/',0);

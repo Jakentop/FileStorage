@@ -15,6 +15,20 @@
         <property name="prefix" value="/"/>    <!-- 前缀 -->
         <property name="suffix" value=".jsp"/>      <!-- 后缀 -->
     </bean>
+
+
+<!--    &lt;!&ndash;    配置拦截器&ndash;&gt;-->
+<!--    &lt;!&ndash;    启动默认servlet，对于静态资源不拦截&ndash;&gt;-->
+<!--        <mvc:default-servlet-handler/>-->
+<!--        &lt;!&ndash;配置拦截器&ndash;&gt;-->
+<!--        <mvc:interceptors>-->
+<!--            <mvc:interceptor>-->
+<!--                <mvc:mapping path="/**"/>-->
+<!--                <bean class="Controllor.fitter.AuthFitter"></bean>-->
+<!--            </mvc:interceptor>-->
+<!--    </mvc:interceptors>-->
+
+
     <!-- 让DispatchServlet启动基于annotation的HandlerMapping -->
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">
@@ -31,5 +45,6 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+
 
 </beans>

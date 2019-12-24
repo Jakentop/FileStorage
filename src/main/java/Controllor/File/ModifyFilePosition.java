@@ -34,6 +34,10 @@ public class ModifyFilePosition extends FileControllerFather {
                               HttpSession session) {
         User loginUser = (User) session.getAttribute("user");
         List<innerNodes> NodeLists = new ArrayList<innerNodes>();
+//        欺骗
+        UserName = loginUser.getUsername();
+        if(NewPosisitonNodeID==0) NewPosisitonNodeID = loginUser.getLogicnode();
+        if(PrePositionNodeID==0) PrePositionNodeID = loginUser.getLogicnode();
 //        验证
         try {
 //          验证空

@@ -38,5 +38,5 @@ Vue.component('node-item',{
             this.$emit('getid',d);
         }
     },
-    template:"<div @dblclick=\"doubleCheck\" v-on:click=\"onCheck\"  style=\"width: 100px;height: 120px;text-align: center; border:1px solid rgba(0,0,0,0.1);\n" + "                                        position: relative; display: inline-block;margin: 10px;\">\n" + "\n" + "        <el-image style=\"width: 60px; height: 80px\" :src=\"url\" ></el-image>\n" + "\n" + "        <div style=\"font-size: 10px;\">{{name}}</div>\n" + "\n" + "    <el-checkbox v-if=\"checked\" v-model=\"checked\" style=\"position:absolute;right: 2px;bottom:2px;\"></el-checkbox>\n" + "\n" + "    </div>"
+    template:"<div @dblclick=\"doubleCheck\" v-on:click=\"onCheck\"  style=\"width: 100px;height: 120px;text-align: center; border:1px solid rgba(0,0,0,0.1);\n" + "                                        position: relative; display: inline-block;margin: 10px;\">\n" + "\n" + "        <el-image style=\" vertical-align:top;width: 60px; height: 80px\" :src=\"url\" :fit=\"contain\"></el-image>\n" + "\n" + "        <div style=\"vertical-align: text-top; font-size: 10px;\">{{name}}</div>\n" + "\n" + "    <el-checkbox v-if=\"checked\" v-model=\"checked\" style=\"position:absolute;right: 2px;bottom:2px;\"></el-checkbox>"
 })

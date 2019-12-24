@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
-import static org.junit.Assert.*;
-
 public class LogMapperTest extends Father {
 
     @Autowired
@@ -15,23 +13,7 @@ public class LogMapperTest extends Father {
 
     @Test
     public void crud_all() {
-        Log log = new Log();
-        log.setEvent("fjskdlfjdskl");
-        log.setTime(new Date());
-        log.setUserid(1);
-//        insert
-        logMapper.insert(log);
-        int id = log.getId();
-//        select
-        pri(logMapper.selectByPrimaryKey(id));
 
-//        update
-        log.setEvent("fjskdfdsflfjdskl");
-        log.setTime(new Date());
-        log.setUserid(2);
-        logMapper.updateByPrimaryKey(log);
-//        select
-        pri(logMapper.selectByPrimaryKey(id));
     }
 
     @Test
@@ -49,7 +31,7 @@ public class LogMapperTest extends Father {
 
 //        update
 
-        log.setEvent("fjskdfdsflfjdskl");
+
         logMapper.updateByPrimaryKeySelective(log);
 //        select
         pri(logMapper.selectByPrimaryKey(id));

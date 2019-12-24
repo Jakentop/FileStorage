@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -170,6 +171,13 @@ public class UserControllor {
             return Msg.ParseStr(500, "/user/checkrepeat", "");
         }
 
+    }
+
+    @RequestMapping(value = "/logout")
+    public @ResponseBody String logout(HttpSession session,HttpServletResponse response) throws IOException {
+        session.setAttribute("user",null);
+        response.sendRedirect("../index.jsp");
+        return "index";
     }
 
 }

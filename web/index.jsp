@@ -26,11 +26,13 @@
 <%--    引入样式--%>
     <link rel="stylesheet" href="css/element/element.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/Animate/anmiate.css">
 
 </head>
 
 <body>
 
+<%--标题--%>
 <div class="header">
     <div class="container">
         <div class="left" id="logo">
@@ -41,9 +43,14 @@
             <el-button type="primary" v-on:click="login">登录</el-button>
             <el-button type="info" v-on:click="register">注册</el-button>
             </c:if>
+            <c:if test="${loginUser!=null}">
+                <div style="display: inline;">welcome <%=loginUser.getUsername()%></div>
+                <el-link href="user/logout" type="info"><i class="el-icon-back"></i>退出</el-link>
+            </c:if>
         </div>
     </div>
 </div>
+
 <%--条件渲染登录内容--%>
 <c:if test="${loginUser==null}">
 <%--        登录主体--%>
@@ -124,18 +131,62 @@
                     </div>
                 </div>
             </div>
+        </div>
     </transition>
 
 </div>
 </c:if>
 
+
+<%--视频背景--%>
+<video autoplay muted loop>
+    <source src="img/1.mp4">
+</video>
+
 <div class="main">
-    <div class="container">
-<%--        网站内容--%>
+    <div style="width:100%;height: 100%;">
+        <img style="width: 100%;height: 100%;" src="img/bglogo.png" style="display: block;">
+
+        <%--架构描述--%>
+        <div class="contain slideInDown" >
+            <div class="title">开发框架</div>
+            <div class="brief">
+            <div>
+                Spring+SpringMVC+MyBatis
+            </div>
+            <div>
+                SqlServer
+            </div>
+            <div>
+                Vue.js+Element
+            </div>
+            </div>
+        </div>
+
+<%--        功能图--%>
+        <div style="width: 100%;padding:20px;padding-top:100px; background-color: #fff;">
+            <div style="margin-left:50px; color:rgb(116,116,116);font-size: 38px;">模&nbsp;&nbsp;块</div>
+            <div style="text-align: center;"><img  src="img/logicNode.jpg" alt=""></div>
+
+        </div>
+
+<%--        数据库--%>
+        <div style="width: 100%;padding:20px;padding-top:200px; background-color: #fff;">
+            <div style="text-align: center;font-size:30px;margin-top:50px;color:rgb(117,117,117);">数据库表关系</div>
+            <div style="width: 100%;margin-top:40px;text-align: center;"><img src="img/sqlpic.png" alt=""></div>
+
+        </div>
+<%--        需求分析--%>
+        <div style="width: 100%;padding:20px;padding-top:200px; background-color: #fff;">
+            <div style="text-align:center; vertical-align: bottom; line-height: 800px; display: inline-block; width:40%; font-size:58px;color:black;">需求分析</div>
+            <div style="width:50%;margin-top:40px; display: inline-block; text-align: center;"><img src="img/interface.jpg" alt="">
+            </div>
+
     </div>
+
+        <%--        网站内容--%>
 </div>
+
 </body>
 <script src="js/index/index.js"></script>
-
-
 </html>

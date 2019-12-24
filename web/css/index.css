@@ -2,12 +2,12 @@ body {
     padding: 0px;
     margin: 0px;
     text-decoration: none;
-    overflow:hidden;
 }
 
 .header {
     width: 100%;
     height: 60px;
+    background-color: rgba(0,0,0,0.2);
     position:fixed;
 }
 
@@ -121,15 +121,42 @@ body {
 }
 
 /*主样式*/
+
+video {
+    position: fixed;
+    top: 60px;
+    left: 0px;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -9999;
+
+}
+
 .main{
     width: 100%;
 }
 
-.container{
+.main .contain {
+    width: 100%;
     height: 100%;
-    width:80%;
-    margin-left: 10%;
-    border-bottom: 1px solid rgba(0,0,0,0.3);
+    color:white;
+}
+
+.main .contain .title {
+    text-align: center;
+    margin-top:150px;
+    font-size: 58px;
+}
+.main .contain .brief {
+    text-align: center;
+    margin-top:150px;
+    font-size:38px;
+}
+
+.main .contain .brief div{
+    margin-bottom: 80px;
 }
 
 

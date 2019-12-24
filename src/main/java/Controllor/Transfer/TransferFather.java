@@ -146,10 +146,11 @@ class innerNodes{
                     File f = fileMapper.selectByPrimaryKey(curt.getFileid());
 //                    添加当前目录下的文件
                     res.add(new downFile(curt.getName() + curt.getSuffix(),
-                            path +  t.getName(),
+                            path + "/"+ t.getName(),
                             f.getUuid()));
                 }
-                DFS(res, t.getId(), path+t.getName()+"/",
+                if(!t.getId().equals(nodeID))
+                innerNodes.DFS(res, t.getId(), path+"/"+t.getName(),
                         nodeMapper,fileNodeMapper,fileMapper);
             }
         }

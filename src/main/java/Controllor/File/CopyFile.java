@@ -1,6 +1,7 @@
 package Controllor.File;
 
 import Function.Msg;
+import Model.ChildNode;
 import Model.FileNode;
 import Model.Node;
 import Model.User;
@@ -57,7 +58,7 @@ public class CopyFile extends FileControllerFather {
 //            节点存在性和权限
             boolean flag = true;
             for (innerNodes n : NodeLists) {
-                if(n.checkExisit()==false||n.CheckAuth(loginUser)==false)
+                if(n.checkExisit()==false||n.CheckAuth(loginUser)==false||n.CheckRepeat(NewNodeID)==false)
                 {
                     flag=false;break;
                 }
@@ -80,6 +81,12 @@ public class CopyFile extends FileControllerFather {
                     newnode.setUserid(cur.getUserid());
                     newnode.setName(cur.getName());
                     nodeMapper.insert(newnode);
+//                    添加子节点信息
+                    ChildNode temp = new ChildNode();
+                    temp.setParentid(cur.getId());
+                    temp.setChildid(newnode.getId());
+                    childNodeMapper.insert(temp);
+
 //                获取当前目录下的所有文件，同样执行一次复制
                     List<FileNode> curFileNode = fileNodeMapper.selectAllFilebyNodeID(cur.getId());
                     for (FileNode fileNode : curFileNode) {

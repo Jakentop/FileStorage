@@ -80,6 +80,7 @@ public class NewChain extends Father {
         Map map = new HashMap();
         map.put("UrlID", extLink.getName());
         SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd" );
+        if(extLink.getEndtime()!=null)
         map.put("EndTime", sdf.format(extLink.getEndtime()));
         map.put("Password", extLink.getPassword());
         return Msg.ParseMap(Msg.OK, "", map);

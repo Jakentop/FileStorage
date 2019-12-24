@@ -56,27 +56,23 @@
                             <span slot="title">首页</span>
                         </el-menu-item>
                         <el-menu-item index="1">
-                            <i class="el-icon-menu"></i>
+                            <i class="el-icon-document"></i>
                             <span slot="title">文件</span>
                         </el-menu-item>
                         <el-menu-item index="2">
-                            <i class="el-icon-document"></i>
+                            <i class="el-icon-share"></i>
                             <span slot="title">外链管理</span>
                         </el-menu-item>
                         <el-menu-item index="3">
-                            <i class="el-icon-setting"></i>
+                            <i class="el-icon-user-solid"></i>
                             <span slot="title">子账号管理</span>
                         </el-menu-item>
-                        <el-menu-item index="4">
-                            <i class="el-icon-setting"></i>
-                            <span slot="title">个人信息</span>
-                        </el-menu-item>
                         <el-menu-item index="5">
-                            <i class="el-icon-setting"></i>
+                            <i class="el-icon-s-data"></i>
                             <span slot="title">仪表盘</span>
                         </el-menu-item>
                         <el-menu-item index="6">
-                            <i class="el-icon-setting"></i>
+                            <i class="el-icon-s-cooperation"></i>
                             <span slot="title">Interface Test</span>
                         </el-menu-item>
                     </el-menu>

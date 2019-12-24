@@ -146,6 +146,20 @@ class innerNodes{
             return t != null;
 
     }
+
+    public boolean CheckRepeat(int nodeID) {
+        if(this.Type==1)
+        {
+            if(fileNodeMapper.selectByNodeIDandFileName(nodeID,fileNodeMapper.selectByPrimaryKey(this.NodeID).getName())!=null) return false;
+        }
+        else
+        {
+            if (nodeMapper.selectChildByNodeIDAndNodeName(nodeID, nodeMapper.selectByPrimaryKey(this.NodeID).getName())!=null) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
 

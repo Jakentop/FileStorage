@@ -118,11 +118,11 @@ var register=new Vue({
                 this.passtitle="主账号密码";
                 //    提交注册信息
                 axios.post("child/modifychildinfo", Qs.stringify({
-                    ChildName: this.username,
-                    CheckPassword: this.password,
-                    E_Mail: this.e_mail,
+                    ChildName: register.username,
+                    CheckPassword: register.password,
+                    E_mail: register.e_mail,
                     type: 1,
-                    LogicNode: this.logicnode
+                    LogicNode: register.logicnode
                 }))
                     .then(function (res) {
                         //    判断请求
