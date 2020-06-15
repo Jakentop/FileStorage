@@ -15,7 +15,7 @@
           destroy-method="close">
         <property name="driverClassName" value="${Class}"/>
         <property name="url" value="${Url}"/>
-        <property name="username" value="${User}"/>
+        <property name="username" value="sa"/>
         <property name="password" value="${Password}"/>
         <!--初始连接数-->
         <property name="initialSize" value="10"/>

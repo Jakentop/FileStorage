@@ -48,6 +48,6 @@
     </filter-mapping>
     <context-param>
         <param-name>path</param-name>
-        <param-value>D:\\剪辑临时存放\\</param-value>
+        <param-value>/Users/jaken/Data/Temp/</param-value>
     </context-param>
 </web-app>

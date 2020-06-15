@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Dao.LogMapper" >
+  <resultMap id="BaseResultMap" type="Model.Log" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="UserID" property="userid" jdbcType="INTEGER" />
+    <result column="Request" property="request" jdbcType="NVARCHAR" />
+    <result column="Time" property="time" jdbcType="TIMESTAMP" />
+    <result column="Response" property="response" jdbcType="NVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, UserID, Request, Time, Response
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from Log
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from Log
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="Model.Log" >
+    insert into Log (ID, UserID, Request, 
+      Time, Response)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{request,jdbcType=NVARCHAR}, 
+      #{time,jdbcType=TIMESTAMP}, #{response,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="Model.Log" >
+    insert into Log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="request != null" >
+        Request,
+      </if>
+      <if test="time != null" >
+        Time,
+      </if>
+      <if test="response != null" >
+        Response,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="request != null" >
+        #{request,jdbcType=NVARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="response != null" >
+        #{response,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="Model.Log" >
+    update Log
+    <set >
+      <if test="userid != null" >
+        UserID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="request != null" >
+        Request = #{request,jdbcType=NVARCHAR},
+      </if>
+      <if test="time != null" >
+        Time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="response != null" >
+        Response = #{response,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="Model.Log" >
+    update Log
+    set UserID = #{userid,jdbcType=INTEGER},
+      Request = #{request,jdbcType=NVARCHAR},
+      Time = #{time,jdbcType=TIMESTAMP},
+      Response = #{response,jdbcType=NVARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -6,7 +6,6 @@ import Function.MD5;
 import Function.Msg;
 import Function.Vaild;
 import Model.User;
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.objenesis.instantiator.annotations.Instantiator;
 import org.springframework.stereotype.Controller;
